@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}BMW Hub - Expert BMW Repair & Maintenance Services in Houston, TX{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Expert BMW Repair & Maintenance Services</h1>
+                <p>Affordable and quality repair and maintenance services for all models of BMW cars in Houston, Texas. Expert mechanics for routine maintenance and complex repairs. Get dealership-quality service at a fraction of the dealership price!</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">Schedule Service Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our BMW Services</h2>
+                <p>We offer comprehensive repair and maintenance services for all BMW models</p>
+            </div>
+            <div class="services-grid">
+                {% for service in services %}
+                    <div class="service-card">
+                        <div class="service-icon">{{ service.icon }}</div>
+                        <h3>{{ service.title }}</h3>
+                        <p>{{ service.short_desc }}</p>
+                        <a href="{{ url_for('service_detail', service_id=service.id) }}" class="btn btn-secondary">Learn More</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Maintenance Tips Section -->
+    <section class="tips-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>BMW Maintenance Tips</h2>
+                <p>Below are some tips for BMW owners to keep your vehicles in good condition</p>
+            </div>
+            <div class="tips-grid">
+                {% for tip in maintenance_tips %}
+                    <div class="tip-card">
+                        <div class="tip-icon">{{ tip.icon }}</div>
+                        <h3>{{ tip.title }}</h3>
+                        <p>{{ tip.desc }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Experience the full potential of your BMW</h2>
+                <p>Maximize your BMW's performance with our expert DME, EGR, ECM repair, and more maintenance services. Whether it's repairing the DME system, optimizing the EGR valve, or fine-tuning the ECM, our comprehensive range of services will enhance your car's efficiency and reliability.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us Today</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

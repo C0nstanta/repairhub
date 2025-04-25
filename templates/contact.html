@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - BMW Hub{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact BMW Hub</h1>
+            <p>We're here to help with all your BMW service needs</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <!-- Contact Information -->
+                <div class="contact-info-box">
+                    <h2>Our Information</h2>
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h3>Location</h3>
+                            <p>{{ company_info.address }}</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-content">
+                            <h3>Phone</h3>
+                            <p><a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">✉️</div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p><a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🕒</div>
+                        <div class="info-content">
+                            <h3>Hours</h3>
+                            {% for day, hours in company_info.hours.items() %}
+                                <p>{{ day }}: {{ hours }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Map -->
+                    <div class="map-container">
+                        <h3>Find Us</h3>
+                        <div class="map">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d221193.5111125649!2d-95.6814899442536!3d29.816881181307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640b8b4488d8501%3A0xca0d02def365053b!2sHouston%2C%20TX!5e0!3m2!1sen!2sus!4v1713970326245!5m2!1sen!2sus" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-box">
+                    <h2>Send Us a Message</h2>
+                    <form action="{{ url_for('contact') }}" method="post" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Your Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="bmw-model">BMW Model</label>
+                            <input type="text" id="bmw-model" name="bmw_model">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-type">Service Needed</label>
+                            <select id="service-type" name="service_type">
+                                <option value="">Select a Service</option>
+                                {% for service in services %}
+                                    <option value="{{ service.id }}">{{ service.title }}</option>
+                                {% endfor %}
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message <span class="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Highlights -->
+    <section class="service-highlights">
+        <div class="container">
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🔧</div>
+                    <h3>Expert Technicians</h3>
+                    <p>Our BMW-certified technicians have years of specialized training and experience.</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">⚡</div>
+                    <h3>Fast Service</h3>
+                    <p>We understand that your time is valuable and strive to complete repairs efficiently.</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">💰</div>
+                    <h3>Competitive Pricing</h3>
+                    <p>Get dealership-quality service at a fraction of the dealership price.</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🛡️</div>
+                    <h3>Warranty on Repairs</h3>
+                    <p>We stand behind our work with warranties on all repairs and services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.title }} - BMW Hub{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>{{ service.title }}</h1>
+            <p>{{ service.short_desc }}</p>
+        </div>
+    </section>
+
+    <!-- Service Detail Section -->
+    <section class="service-detail-section">
+        <div class="container">
+            <div class="service-detail-content">
+                <div class="service-image">
+                    <img src="{{ url_for('static', filename='images/' + service.image) }}" alt="{{ service.title }}">
+                </div>
+                <div class="service-description">
+                    <div class="service-icon">{{ service.icon }}</div>
+                    <h2>About This Service</h2>
+                    <p>{{ service.full_desc }}</p>
+                    
+                    <div class="service-benefits">
+                        <h3>Why Choose BMW Hub for {{ service.title }}</h3>
+                        <ul>
+                            <li>Certified BMW technicians with specialized training</li>
+                            <li>State-of-the-art diagnostic equipment</li>
+                            <li>High-quality OEM or equivalent parts</li>
+                            <li>Competitive pricing compared to dealerships</li>
+                            <li>Comprehensive warranty on all work performed</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-cta">
+                        <a href="{{ url_for('contact') }}" class="btn btn-primary">Schedule This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Services Section -->
+    <section class="related-services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Related Services</h2>
+                <p>You might also be interested in these services for your BMW</p>
+            </div>
+            <div class="services-grid">
+                {% for s in services if s.id != service.id %}
+                    {% if loop.index <= 3 %}
+                        <div class="service-card">
+                            <div class="service-icon">{{ s.icon }}</div>
+                            <h3>{{ s.title }}</h3>
+                            <p>{{ s.short_desc }}</p>
+                            <a href="{{ url_for('service_detail', service_id=s.id) }}" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to schedule your {{ service.title }}?</h2>
+                <p>Contact us today to book your appointment or request a quote.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us Now</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

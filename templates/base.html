@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BMW Hub - Expert BMW Repair & Maintenance{% endblock %}</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="icon">📞</i> {{ company_info.phone }}</span>
+                <span><i class="icon">✉️</i> {{ company_info.email }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <h1>{{ company_info.name }}</h1>
+                </a>
+            </div>
+            <nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="main-menu">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('services_page') }}">Services</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                <div class="container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-widgets">
+                <div class="footer-widget">
+                    <h3>About {{ company_info.name }}</h3>
+                    <p>{{ company_info.about_short }}</p>
+                </div>
+                <div class="footer-widget">
+                    <h3>Our Services</h3>
+                    <ul>
+                        {% for service in services %}
+                            <li><a href="{{ url_for('service_detail', service_id=service.id) }}">{{ service.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h3>Contact Information</h3>
+                    <address>
+                        <p><i class="icon">📍</i> {{ company_info.address }}</p>
+                        <p><i class="icon">📞</i> {{ company_info.phone }}</p>
+                        <p><i class="icon">✉️</i> {{ company_info.email }}</p>
+                    </address>
+                    <div class="hours">
+                        <h4>Business Hours</h4>
+                        <ul>
+                            {% for day, hours in company_info.hours.items() %}
+                                <li>{{ day }}: {{ hours }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {{ now.year }} {{ company_info.name }}. All Rights Reserved. Not affiliated with BMW AG.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,5 +1,5 @@
 """
-Configuration and data for BMW Hub website
+Configuration and data for simplified BMW Hub website
 """
 
 # Company information
@@ -108,26 +108,22 @@ team_members = [
     {
         'name': 'David Miller',
         'title': 'Owner & Master Technician',
-        'bio': 'With over 20 years of BMW experience and factory training, David leads our technical team and oversees all complex diagnostic challenges.',
-        'image': 'team-1.jpg'
+        'bio': 'With over 20 years of BMW experience and factory training, David leads our technical team and oversees all complex diagnostic challenges.'
     },
     {
         'name': 'Michael Chen',
         'title': 'Service Manager',
-        'bio': 'Michael ensures that every customer receives outstanding service. He coordinates all service appointments and keeps projects running smoothly.',
-        'image': 'team-2.jpg'
+        'bio': 'Michael ensures that every customer receives outstanding service. He coordinates all service appointments and keeps projects running smoothly.'
     },
     {
         'name': 'Sarah Johnson',
         'title': 'Senior BMW Technician',
-        'bio': 'A BMW specialist for 15 years, Sarah excels at electrical diagnostics and has particular expertise with modern BMW systems.',
-        'image': 'team-3.jpg'
+        'bio': 'A BMW specialist for 15 years, Sarah excels at electrical diagnostics and has particular expertise with modern BMW systems.'
     },
     {
         'name': 'Carlos Rodriguez',
         'title': 'BMW Certified Technician',
-        'bio': 'Carlos specializes in performance upgrades and mechanical repairs, bringing 12 years of BMW experience to our team.',
-        'image': 'team-4.jpg'
+        'bio': 'Carlos specializes in performance upgrades and mechanical repairs, bringing 12 years of BMW experience to our team.'
     }
 ]
 

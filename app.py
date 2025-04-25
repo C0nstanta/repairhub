@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 import os
-from config import company_info, services, maintenance_tips
+from config import company_info, services, maintenance_tips, team_members, bmw_models
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY') or 'bmw-hub-development-key'
@@ -21,6 +21,7 @@ def services_page():
     return render_template('services.html', 
                           services=services,
                           company_info=company_info,
+                          bmw_models=bmw_models,
                           now=datetime.now())
 
 @app.route('/service/<int:service_id>')
@@ -40,6 +41,7 @@ def about():
     """Render the about page"""
     return render_template('about.html', 
                           company_info=company_info,
+                          team_members=team_members,
                           now=datetime.now())
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -58,6 +60,7 @@ def contact():
     
     return render_template('contact.html', 
                           company_info=company_info,
+                          services=services,
                           now=datetime.now())
 
 if __name__ == '__main__':

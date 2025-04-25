@@ -5,90 +5,68 @@
 {% block content %}
     <!-- Page Header -->
     <section class="page-header">
-        <div class="container">
+        <div class="header-content">
             <h1>Contact BMW Hub</h1>
             <p>We're here to help with all your BMW service needs</p>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact-section">
+    <section class="contact-main">
         <div class="container">
-            <div class="contact-content">
-                <!-- Contact Information -->
-                <div class="contact-info-box">
-                    <h2>Our Information</h2>
+            <div class="contact-grid">
+                <div class="contact-info-block">
+                    <h2>Get In Touch</h2>
+                    
                     <div class="info-item">
-                        <div class="info-icon">📍</div>
-                        <div class="info-content">
-                            <h3>Location</h3>
-                            <p>{{ company_info.address }}</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">📞</div>
-                        <div class="info-content">
-                            <h3>Phone</h3>
-                            <p><a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">✉️</div>
-                        <div class="info-content">
-                            <h3>Email</h3>
-                            <p><a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">🕒</div>
-                        <div class="info-content">
-                            <h3>Hours</h3>
-                            {% for day, hours in company_info.hours.items() %}
-                                <p>{{ day }}: {{ hours }}</p>
-                            {% endfor %}
+                        <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                        <p>{{ company_info.address }}</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55406.30530838285!2d-95.39854384179687!3d29.75096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640bf3f70bd8b7d%3A0x2c9a9af55acbad71!2sHouston%2C%20TX%2077001!5e0!3m2!1sen!2sus!4v1650654058054!5m2!1sen!2sus" 
+                            width="100%" height="250" style="border:0; border-radius: 5px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                     
-                    <!-- Map -->
-                    <div class="map-container">
-                        <h3>Find Us</h3>
-                        <div class="map">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d221193.5111125649!2d-95.6814899442536!3d29.816881181307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640b8b4488d8501%3A0xca0d02def365053b!2sHouston%2C%20TX!5e0!3m2!1sen!2sus!4v1713970326245!5m2!1sen!2sus" 
-                                width="100%" 
-                                height="300" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
+                    <div class="info-item">
+                        <h3><i class="fas fa-phone-alt"></i> Phone</h3>
+                        <p><a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h3><i class="fas fa-envelope"></i> Email</h3>
+                        <p><a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
+                    </div>
+                    
+                    <div class="info-item">
+                        <h3><i class="fas fa-clock"></i> Business Hours</h3>
+                        {% for day, hours in company_info.hours.items() %}
+                            <p><strong>{{ day }}:</strong> {{ hours }}</p>
+                        {% endfor %}
                     </div>
                 </div>
                 
-                <!-- Contact Form -->
-                <div class="contact-form-box">
+                <div class="contact-form-block">
                     <h2>Send Us a Message</h2>
+                    
                     <form action="{{ url_for('contact') }}" method="post" class="contact-form">
                         <div class="form-group">
                             <label for="name">Your Name <span class="required">*</span></label>
                             <input type="text" id="name" name="name" required>
                         </div>
+                        
                         <div class="form-group">
                             <label for="email">Your Email <span class="required">*</span></label>
                             <input type="email" id="email" name="email" required>
                         </div>
+                        
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
                             <input type="tel" id="phone" name="phone">
                         </div>
+                        
                         <div class="form-group">
-                            <label for="bmw-model">BMW Model</label>
-                            <input type="text" id="bmw-model" name="bmw_model">
-                        </div>
-                        <div class="form-group">
-                            <label for="service-type">Service Needed</label>
-                            <select id="service-type" name="service_type">
+                            <label for="service">Service Needed</label>
+                            <select id="service" name="service">
                                 <option value="">Select a Service</option>
                                 {% for service in services %}
                                     <option value="{{ service.id }}">{{ service.title }}</option>
@@ -96,42 +74,451 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
+                        
                         <div class="form-group">
                             <label for="message">Message <span class="required">*</span></label>
                             <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        
+                        <button type="submit" class="submit-button">Send Message</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Service Highlights -->
-    <section class="service-highlights">
+    <!-- FAQ Section -->
+    <section class="faq-section">
         <div class="container">
-            <div class="highlights-grid">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🔧</div>
-                    <h3>Expert Technicians</h3>
-                    <p>Our BMW-certified technicians have years of specialized training and experience.</p>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-description">Find answers to commonly asked questions about our services</p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you provide a warranty on your repairs?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a 24-month/24,000-mile warranty on all parts and labor. This warranty covers any defects in workmanship or materials for the specified period.</p>
+                    </div>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">⚡</div>
-                    <h3>Fast Service</h3>
-                    <p>We understand that your time is valuable and strive to complete repairs efficiently.</p>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does a typical service take?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Service times vary depending on the type of maintenance or repair needed. Routine maintenance can typically be completed in 1-2 hours, while more complex repairs may take a full day or longer. We always provide an estimated completion time when you bring your vehicle in.</p>
+                    </div>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">💰</div>
-                    <h3>Competitive Pricing</h3>
-                    <p>Get dealership-quality service at a fraction of the dealership price.</p>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer loaner vehicles or shuttle service?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a complimentary local shuttle service for customers within a 5-mile radius of our facility. For repairs requiring more than one day, we have a limited number of loaner vehicles available for our regular customers (subject to availability).</p>
+                    </div>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🛡️</div>
-                    <h3>Warranty on Repairs</h3>
-                    <p>We stand behind our work with warranties on all repairs and services.</p>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards, debit cards, cash, and checks. We also offer financing options for larger repairs through our partnership with Synchrony Financial.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do I need an appointment or can I just drop in?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While we do accept walk-ins for minor services, we strongly recommend scheduling an appointment to ensure prompt service. You can book an appointment online through our website, by phone, or in person.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Container styles */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    /* Contact section styles */
+    .contact-main {
+        padding: 80px 0;
+    }
+    
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+    }
+    
+    .contact-info-block h2, 
+    .contact-form-block h2 {
+        font-size: 30px;
+        margin-bottom: 30px;
+        color: #000;
+        font-weight: 300;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .contact-info-block h2:after, 
+    .contact-form-block h2:after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background-color: #0078D6;
+        bottom: 0;
+        left: 0;
+    }
+    
+    .info-item {
+        margin-bottom: 30px;
+    }
+    
+    .info-item h3 {
+        font-size: 18px;
+        color: #000;
+        margin-bottom: 10px;
+    }
+    
+    .info-item i {
+        color: #0078D6;
+        margin-right: 10px;
+    }
+    
+    .info-item p, 
+    .info-item a {
+        color: #666;
+        margin-bottom: 5px;
+    }
+    
+    .info-item a:hover {
+        color: #0078D6;
+    }
+    
+    .map-container {
+        margin-top: 15px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    /* Form styles */
+    .contact-form {
+        background-color: #f8f8f8;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .form-group input, 
+    .form-group textarea, 
+    .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus, 
+    .form-group textarea:focus, 
+    .form-group select:focus {
+        outline: none;
+        border-color: #0078D6;
+    }
+    
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .required {
+        color: #e53935;
+        margin-left: 3px;
+    }
+    
+    .submit-button {
+        background-color: #0078D6;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    
+    .submit-button:hover {
+        background-color: #00243C;
+    }
+    
+    /* FAQ section styles */
+    .faq-section {
+        padding: 80px 0;
+        background-color: #f8f8f8;
+    }
+    
+    .section-title {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #000;
+        font-weight: 300;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 3px;
+        background-color: #0078D6;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .section-description {
+        text-align: center;
+        margin-bottom: 50px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #666;
+    }
+    
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .faq-item {
+        background-color: white;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+    
+    .faq-question {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .faq-question:hover {
+        background-color: rgba(0, 120, 214, 0.05);
+    }
+    
+    .faq-question h3 {
+        font-size: 18px;
+        color: #000;
+        margin: 0;
+    }
+    
+    .faq-toggle {
+        color: #0078D6;
+        font-size: 18px;
+    }
+    
+    .faq-answer {
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    
+    .faq-item.active .faq-answer {
+        padding: 0 20px 20px;
+        max-height: 1000px;
+    }
+    
+    .faq-item.active .faq-toggle i {
+        transform: rotate(45deg);
+    }
+    
+    .faq-answer p {
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .contact-info-block {
+            order: 2;
+        }
+        
+        .contact-form-block {
+            order: 1;
+            margin-bottom: 50px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .contact-main,
+        .faq-section {
+            padding: 60px 0;
+        }
+        
+        .contact-info-block h2, 
+        .contact-form-block h2 {
+            font-size: 24px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+        }
+        
+        .faq-question h3 {
+            font-size: 16px;
+        }
+    }
+
+    /* Error message styles */
+    .error-message {
+        color: #e53935;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    
+    .form-group input.error,
+    .form-group textarea.error,
+    .form-group select.error {
+        border-color: #e53935;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Determine if this FAQ is currently active
+                const isActive = item.classList.contains('active');
+                
+                // Close all FAQs
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const toggle = otherItem.querySelector('.faq-toggle i');
+                    toggle.className = 'fas fa-plus';
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    item.classList.add('active');
+                    const toggle = item.querySelector('.faq-toggle i');
+                    toggle.className = 'fas fa-minus';
+                }
+            });
+        });
+        
+        // Form Validation
+        const form = document.querySelector('.contact-form');
+        
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(function(field) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('error');
+                        
+                        // Create error message
+                        let errorMsgElement = field.parentElement.querySelector('.error-message');
+                        
+                        if (!errorMsgElement) {
+                            errorMsgElement = document.createElement('div');
+                            errorMsgElement.className = 'error-message';
+                            field.parentElement.appendChild(errorMsgElement);
+                        }
+                        
+                        errorMsgElement.textContent = `This field is required`;
+                    } else {
+                        field.classList.remove('error');
+                        
+                        const errorMsgElement = field.parentElement.querySelector('.error-message');
+                        if (errorMsgElement) {
+                            errorMsgElement.remove();
+                        }
+                    }
+                });
+                
+                // Validate email format if there's an email field
+                const emailField = form.querySelector('input[type="email"]');
+                if (emailField && emailField.value.trim()) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(emailField.value)) {
+                        isValid = false;
+                        emailField.classList.add('error');
+                        
+                        let errorMsgElement = emailField.parentElement.querySelector('.error-message');
+                        
+                        if (!errorMsgElement) {
+                            errorMsgElement = document.createElement('div');
+                            errorMsgElement.className = 'error-message';
+                            emailField.parentElement.appendChild(errorMsgElement);
+                        }
+                        
+                        errorMsgElement.textContent = 'Please enter a valid email address';
+                    }
+                }
+                
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

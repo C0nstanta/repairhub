@@ -1,0 +1,58 @@
+/* Video Background Responsive Styles */
+@media screen and (max-width: 1200px) {
+    .hero-content {
+        padding: 120px 0;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .hero-content {
+        padding: 100px 0;
+    }
+    
+    .hero h1 {
+        font-size: 36px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero-content {
+        padding: 80px 0;
+    }
+    
+    .hero h1 {
+        font-size: 30px;
+    }
+    
+    /* On smaller screens, ensure the video is properly covering the area */
+    .video-background video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .hero-content {
+        padding: 60px 0;
+    }
+    
+    .hero h1 {
+        font-size: 26px;
+    }
+    
+    .hero p {
+        font-size: 14px;
+    }
+    
+    /* For very small screens, fallback to image might be better */
+    .hero.video-fallback {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+}

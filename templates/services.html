@@ -5,30 +5,28 @@
 {% block content %}
     <!-- Page Header -->
     <section class="page-header">
-        <div class="container">
+        <div class="header-content">
             <h1>Our BMW Services</h1>
-            <p>Comprehensive repair and maintenance services for all BMW models</p>
+            <p>Comprehensive repair and maintenance for all BMW models</p>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services-section full-services">
+    <section class="services-section page">
         <div class="container">
-            <div class="section-header">
-                <h2>Expert Services for Your BMW</h2>
-                <p>We offer a complete range of repair and maintenance services to keep your BMW running at its best.</p>
-            </div>
-            <div class="services-grid">
+            <h2 class="section-title">Expert BMW Services</h2>
+            <p class="section-description">At BMW Hub, we offer a complete range of maintenance and repair services for all BMW models. Our certified technicians use advanced diagnostic equipment and genuine BMW parts to ensure the highest quality service.</p>
+            
+            <div class="services-list">
                 {% for service in services %}
-                    <div class="service-card">
+                    <div class="service-item large">
                         <div class="service-image">
                             <img src="{{ url_for('static', filename='images/' + service.image) }}" alt="{{ service.title }}">
                         </div>
                         <div class="service-content">
-                            <div class="service-icon">{{ service.icon }}</div>
                             <h3>{{ service.title }}</h3>
-                            <p>{{ service.short_desc }}</p>
-                            <a href="{{ url_for('service_detail', service_id=service.id) }}" class="btn btn-secondary">Learn More</a>
+                            <p>{{ service.full_desc }}</p>
+                            <a href="{{ url_for('service_detail', service_id=service.id) }}" class="service-link">Learn More</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -39,57 +37,191 @@
     <!-- BMW Models Section -->
     <section class="models-section">
         <div class="container">
-            <div class="section-header">
-                <h2>BMW Models We Service</h2>
-                <p>Our expert technicians are trained to work on all BMW models, from classics to the latest releases.</p>
+            <h2 class="section-title">BMW Models We Service</h2>
+            <p class="section-description">Our technicians are trained to service all BMW models, from classics to the latest releases. We have the expertise and equipment to handle every BMW series.</p>
+            
+            <div class="models-container">
+                {% for category, models in bmw_models.items() %}
+                    <div class="model-category">
+                        <h3>{{ category }}</h3>
+                        <div class="model-list">
+                            {% for model in models %}
+                                <div class="model-item">{{ model }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="models-grid">
-                <div class="model-category">
-                    <h3>Sedans & Coupes</h3>
-                    <ul>
-                        <li>1 Series</li>
-                        <li>2 Series</li>
-                        <li>3 Series</li>
-                        <li>4 Series</li>
-                        <li>5 Series</li>
-                        <li>6 Series</li>
-                        <li>7 Series</li>
-                        <li>8 Series</li>
-                    </ul>
+        </div>
+    </section>
+
+    <!-- Service Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title">Our Service Process</h2>
+            <p class="section-description">Experience a streamlined service process designed to make maintaining your BMW as convenient as possible.</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Schedule Appointment</h3>
+                        <p>Book your service online, by phone, or in person at our convenient Houston location.</p>
+                    </div>
                 </div>
-                <div class="model-category">
-                    <h3>SUVs & Crossovers</h3>
-                    <ul>
-                        <li>X1</li>
-                        <li>X2</li>
-                        <li>X3</li>
-                        <li>X4</li>
-                        <li>X5</li>
-                        <li>X6</li>
-                        <li>X7</li>
-                    </ul>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Vehicle Check-In</h3>
+                        <p>Drop off your vehicle and discuss your service needs with our BMW specialists.</p>
+                    </div>
                 </div>
-                <div class="model-category">
-                    <h3>Performance & Specialty</h3>
-                    <ul>
-                        <li>M Series</li>
-                        <li>Z Series</li>
-                        <li>i Series</li>
-                        <li>Hybrids</li>
-                    </ul>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Diagnostic & Service</h3>
+                        <p>Our certified technicians will inspect and service your BMW using advanced equipment.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Quality Check</h3>
+                        <p>We perform a thorough quality check to ensure all work meets our high standards.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Vehicle Delivery</h3>
+                        <p>Pick up your BMW and receive a detailed explanation of the services performed.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action Section -->
-    <section class="cta-section">
+    <section class="service-cta">
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to schedule your BMW service?</h2>
-                <p>Contact us today to book your appointment or request a quote.</p>
-                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us Now</a>
+                <p>Contact us today to book an appointment with our BMW specialists.</p>
+                <a href="{{ url_for('contact') }}" class="cta-button">Schedule Service</a>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Container styles */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    /* Process section styles */
+    .process-section {
+        padding: 80px 0;
+        background-color: #f8f8f8;
+    }
+    
+    .process-steps {
+        margin-top: 50px;
+    }
+    
+    .step {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .step-number {
+        width: 50px;
+        height: 50px;
+        background-color: #0078D6;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #000;
+    }
+    
+    .step-content p {
+        color: #666;
+        margin: 0;
+    }
+    
+    /* Service CTA styles */
+    .service-cta {
+        padding: 80px 0;
+        background-color: #00243C;
+        color: white;
+        text-align: center;
+    }
+    
+    .cta-content h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        font-weight: 300;
+    }
+    
+    .cta-content p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #0078D6;
+        color: white;
+        padding: 15px 30px;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .cta-button:hover {
+        background-color: #005aa3;
+    }
+    
+    @media (max-width: 768px) {
+        .process-section,
+        .service-cta {
+            padding: 60px 0;
+        }
+        
+        .cta-content h2 {
+            font-size: 28px;
+        }
+        
+        .cta-content p {
+            font-size: 16px;
+        }
+        
+        .step {
+            padding: 20px;
+        }
+    }
+</style>
 {% endblock %}

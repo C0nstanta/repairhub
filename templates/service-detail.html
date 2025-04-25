@@ -5,7 +5,7 @@
 {% block content %}
     <!-- Page Header -->
     <section class="page-header">
-        <div class="container">
+        <div class="header-content">
             <h1>{{ service.title }}</h1>
             <p>{{ service.short_desc }}</p>
         </div>
@@ -15,8 +15,8 @@
     <section class="service-detail-section">
         <div class="container">
             <div class="service-detail-content">
-                <div class="service-image">
-                    <img src="{{ url_for('static', filename='images/' + service.image) }}" alt="{{ service.title }}">
+                <div class="service-image-container">
+                    <img src="{{ url_for('static', filename='images/' + service.image) }}" alt="{{ service.title }}" class="service-main-image">
                 </div>
                 <div class="service-description">
                     <div class="service-icon">{{ service.icon }}</div>
@@ -25,17 +25,78 @@
                     
                     <div class="service-benefits">
                         <h3>Why Choose BMW Hub for {{ service.title }}</h3>
-                        <ul>
-                            <li>Certified BMW technicians with specialized training</li>
-                            <li>State-of-the-art diagnostic equipment</li>
-                            <li>High-quality OEM or equivalent parts</li>
-                            <li>Competitive pricing compared to dealerships</li>
-                            <li>Comprehensive warranty on all work performed</li>
+                        <ul class="benefits-list">
+                            <li>
+                                <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
+                                <span class="benefit-text">Certified BMW technicians with specialized training</span>
+                            </li>
+                            <li>
+                                <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
+                                <span class="benefit-text">State-of-the-art diagnostic equipment</span>
+                            </li>
+                            <li>
+                                <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
+                                <span class="benefit-text">High-quality OEM or equivalent parts</span>
+                            </li>
+                            <li>
+                                <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
+                                <span class="benefit-text">Competitive pricing compared to dealerships</span>
+                            </li>
+                            <li>
+                                <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
+                                <span class="benefit-text">Comprehensive warranty on all work performed</span>
+                            </li>
                         </ul>
                     </div>
                     
                     <div class="service-cta">
-                        <a href="{{ url_for('contact') }}" class="btn btn-primary">Schedule This Service</a>
+                        <a href="{{ url_for('contact') }}" class="service-button">Schedule This Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Process Section -->
+    <section class="service-process-section">
+        <div class="container">
+            <h2 class="section-title">Our {{ service.title }} Process</h2>
+            <p class="section-description">How we ensure the highest quality service for your BMW</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Initial Assessment</h3>
+                        <p>We perform a comprehensive inspection to identify all service needs and provide an accurate estimate.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Detailed Diagnostics</h3>
+                        <p>Our BMW-specific diagnostic equipment identifies any issues requiring attention.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Expert Service</h3>
+                        <p>Our certified technicians perform the service using quality parts and proven procedures.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Quality Check</h3>
+                        <p>Every service is verified through a comprehensive quality inspection process.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Service Review</h3>
+                        <p>We provide a detailed explanation of all work performed and recommendations for future maintenance.</p>
                     </div>
                 </div>
             </div>
@@ -45,18 +106,17 @@
     <!-- Related Services Section -->
     <section class="related-services-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Related Services</h2>
-                <p>You might also be interested in these services for your BMW</p>
-            </div>
-            <div class="services-grid">
+            <h2 class="section-title">Related Services</h2>
+            <p class="section-description">You might also be interested in these services for your BMW</p>
+            
+            <div class="related-services-grid">
                 {% for s in services if s.id != service.id %}
                     {% if loop.index <= 3 %}
-                        <div class="service-card">
+                        <div class="related-service-card">
                             <div class="service-icon">{{ s.icon }}</div>
                             <h3>{{ s.title }}</h3>
                             <p>{{ s.short_desc }}</p>
-                            <a href="{{ url_for('service_detail', service_id=s.id) }}" class="btn btn-secondary">Learn More</a>
+                            <a href="{{ url_for('service_detail', service_id=s.id) }}" class="related-service-link">Learn More</a>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -70,8 +130,345 @@
             <div class="cta-content">
                 <h2>Ready to schedule your {{ service.title }}?</h2>
                 <p>Contact us today to book your appointment or request a quote.</p>
-                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us Now</a>
+                <a href="{{ url_for('contact') }}" class="cta-button">Contact Us Now</a>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Container styles */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    /* Service detail section styles */
+    .service-detail-section {
+        padding: 80px 0;
+    }
+    
+    .service-detail-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: start;
+    }
+    
+    .service-image-container {
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .service-main-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .service-description {
+        padding: 20px 0;
+    }
+    
+    .service-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #0078D6;
+    }
+    
+    .service-description h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+        color: #000;
+        font-weight: 300;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .service-description h2:after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background-color: #0078D6;
+        bottom: 0;
+        left: 0;
+    }
+    
+    .service-description p {
+        color: #666;
+        line-height: 1.8;
+        margin-bottom: 30px;
+    }
+    
+    .service-benefits {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .service-benefits h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #000;
+    }
+    
+    .benefits-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .benefits-list li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+    
+    .benefit-icon {
+        color: #0078D6;
+        margin-right: 15px;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+    
+    .benefit-text {
+        color: #666;
+    }
+    
+    .service-button {
+        display: inline-block;
+        background-color: #0078D6;
+        color: white;
+        padding: 12px 25px;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .service-button:hover {
+        background-color: #005aa3;
+    }
+    
+    /* Service process section styles */
+    .service-process-section {
+        padding: 80px 0;
+        background-color: #f8f8f8;
+    }
+    
+    .process-steps {
+        margin-top: 50px;
+        position: relative;
+    }
+    
+    .process-steps:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 24px;
+        width: 2px;
+        background-color: #0078D6;
+        z-index: 1;
+    }
+    
+    .process-step {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .step-number {
+        width: 50px;
+        height: 50px;
+        background-color: #0078D6;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin-right: 30px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    
+    .step-content {
+        background-color: white;
+        padding: 25px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        flex: 1;
+    }
+    
+    .step-content h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #000;
+    }
+    
+    .step-content p {
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+    }
+    
+    /* Related services section styles */
+    .related-services-section {
+        padding: 80px 0;
+    }
+    
+    .related-services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+    
+    .related-service-card {
+        background-color: #f8f8f8;
+        padding: 30px;
+        border-radius: 5px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .related-service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .related-service-card .service-icon {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    
+    .related-service-card h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #000;
+    }
+    
+    .related-service-card p {
+        color: #666;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+    
+    .related-service-link {
+        display: inline-block;
+        color: #0078D6;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        position: relative;
+        padding-right: 20px;
+    }
+    
+    .related-service-link:after {
+        content: '→';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: right 0.3s;
+    }
+    
+    .related-service-link:hover:after {
+        right: -5px;
+    }
+    
+    /* CTA section styles */
+    .cta-section {
+        padding: 80px 0;
+        background-color: #00243C;
+        color: white;
+        text-align: center;
+    }
+    
+    .cta-content h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        font-weight: 300;
+    }
+    
+    .cta-content p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #0078D6;
+        color: white;
+        padding: 15px 30px;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .cta-button:hover {
+        background-color: #005aa3;
+    }
+    
+    @media (max-width: 992px) {
+        .service-detail-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .service-image-container {
+            margin-bottom: 30px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .service-detail-section,
+        .service-process-section,
+        .related-services-section,
+        .cta-section {
+            padding: 60px 0;
+        }
+        
+        .service-description h2 {
+            font-size: 24px;
+        }
+        
+        .cta-content h2 {
+            font-size: 28px;
+        }
+        
+        .cta-content p {
+            font-size: 16px;
+        }
+        
+        .process-steps:before {
+            left: 20px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            margin-right: 20px;
+        }
+        
+        .step-content {
+            padding: 15px;
+        }
+        
+        .step-content h3 {
+            font-size: 18px;
+        }
+    }
+</style>
 {% endblock %}

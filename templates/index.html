@@ -7,62 +7,194 @@
     <section class="hero">
         <div class="video-background">
             <video autoplay muted loop playsinline>
-                <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
+                <source src="{{ url_for('static', filename='videos/bmw-hero.mp4')  | safe }}" type="video/mp4">
             </video>
         </div>
         <div class="video-overlay"></div>
         <div class="hero-content">
-            <h1>Expert BMW Service & Maintenance</h1>
-            <p>BMW Hub delivers premium-quality repairs and maintenance for all BMW models in Houston, TX. Experience dealership-level service at a more affordable price.</p>
-            <a href="{{ url_for('contact') }}" class="hero-button">Schedule Service</a>
+            <h1>Houston's Premier BMW Service Center</h1>
+            <p>Expert repair and maintenance for all BMW models with dealership-quality service at affordable prices. Our certified technicians have over 15 years of experience serving the Houston area.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('appointment')  | safe }}" class="hero-button primary">Schedule Service</a>
+                <a href="{{ url_for('services_page') | safe }}" class="hero-button secondary">Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="features-section section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose BMW Hub</h2>
+                <p>Experience the BMW Hub difference with our expert team and premium service</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>BMW Certified Technicians</h3>
+                    <p>Our technicians have specialized BMW training and certification to ensure expert service for your vehicle.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Advanced Diagnostics</h3>
+                    <p>We use the latest diagnostic technology specifically designed for BMW vehicles to identify issues accurately.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Quality Parts</h3>
+                    <p>We use only genuine BMW parts or OEM-quality equivalents to ensure optimal performance and reliability.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Competitive Pricing</h3>
+                    <p>Get dealership-quality service at a fraction of the cost with our transparent pricing policy.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services-section">
-        <h2 class="section-title">Our Services</h2>
-        <p class="section-description">We offer comprehensive repair and maintenance services for all BMW models, delivered by certified technicians with specialized training.</p>
-        
-        <div class="services-grid">
-            {% for service in services %}
-                <div class="service-item">
-                    <div class="service-icon">
-                        {{ service.icon }}
+    <section class="services-section section-padding bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our BMW Services</h2>
+                <p>Comprehensive repair and maintenance services for all BMW models</p>
+            </div>
+            
+            <div class="services-grid">
+                {% for service in services %}
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="{{ url_for('static', filename='images/services/' + service.image) | safe}}" alt="{{ service.title }}">
                     </div>
-                    <h3>{{ service.title }}</h3>
-                    <p>{{ service.short_desc }}</p>
+                    <div class="service-content">
+                        <div class="service-icon">{{ service.icon | safe }}</div>
+                        <h3 class="service-title">{{ service.title | safe }}</h3>
+                        <p class="service-desc">{{ service.short_desc | safe }}</p>
+                        <a href="{{ url_for('service_detail', service_id=service.id) | safe }}" class="btn btn-secondary">Learn More</a>
+                    </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </section>
 
-    <!-- About Section Brief -->
-    <section class="about-brief">
-        <div class="about-container">
+    <!-- About Section -->
+    <section class="about-section section-padding">
+        <div class="container">
             <div class="about-content">
-                <h2 class="section-title">Why Choose BMW Hub</h2>
-                <p class="section-description">Founded in {{ company_info.year_founded }}, BMW Hub has been providing Houston BMW owners with exceptional service for over {{ now.year - company_info.year_founded }} years.</p>
+                <div class="about-image">
+                    <img src="{{ url_for('static', filename='images/about-workshop.jpg')  | safe }}" alt="BMW Hub Workshop">
+                </div>
+                <div class="about-text">
+                    <h2>About BMW Hub</h2>
+                    <p>Founded in {{ company_info.year_founded }}, BMW Hub has been Houston's trusted BMW specialist for over {{ now.year - company_info.year_founded }} years.</p>
+                    <p>Our founder, a former BMW dealership master technician, created BMW Hub to provide dealership-quality service at more affordable prices. What started as a small garage has grown into Houston's premier independent BMW service center.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h3>{{ now.year - company_info.year_founded }}+ Years Experience</h3>
+                                <p>Serving BMW owners in Houston since {{ company_info.year_founded }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h3>All BMW Models</h3>
+                                <p>Expert service for all BMW models from classics to the latest releases</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h3>5-Star Rated</h3>
+                                <p>Consistently top-rated BMW service center in Houston</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="{{ url_for('about') }}" class="btn">Learn More About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Customers Say</h2>
+                <p>Don't just take our word for it - hear from our satisfied customers</p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">BMW Hub has serviced my 5 Series for years, and I've never been disappointed. Their knowledge of BMW systems is impressive, and their pricing is far better than the dealership.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/customer-1.jpg') | safe}}" alt="John Davis">
+                        </div>
+                        <div class="author-info">
+                            <h4>John Davis</h4>
+                            <p>BMW 5 Series Owner</p>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <i class="fas fa-certificate"></i>
-                        <h3>Certified Technicians</h3>
-                        <p>Our team includes BMW-certified specialists with extensive experience.</p>
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-tools"></i>
-                        <h3>Advanced Equipment</h3>
-                        <p>We use the latest diagnostic and repair equipment specialized for BMW.</p>
+                    <p class="testimonial-text">The team at BMW Hub diagnosed and fixed an electrical issue that had stumped two other shops. They're now my go-to for everything on my X5. Highly recommended!</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/customer-2.jpg') }}" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>BMW X5 Owner</p>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-thumbs-up"></i>
-                        <h3>Quality Parts</h3>
-                        <p>Only OEM or premium equivalent parts are used in your vehicle.</p>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-dollar-sign"></i>
-                        <h3>Competitive Pricing</h3>
-                        <p>Get dealership-quality service at a much more affordable rate.</p>
+                    <p class="testimonial-text">After getting tired of dealership prices, I tried BMW Hub for my 3 Series maintenance. The service was excellent, they explained everything clearly, and I saved nearly 40% compared to the dealership.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/customer-3.jpg') }}" alt="Michael Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>BMW 3 Series Owner</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,149 +202,49 @@
     </section>
 
     <!-- Maintenance Tips Section -->
-    <section class="maintenance-section">
-        <div class="maintenance-container">
-            <h2 class="section-title">BMW Maintenance Tips</h2>
-            <p class="section-description">Keep your BMW performing at its best with these essential maintenance recommendations.</p>
+    <section class="tips-section section-padding bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>BMW Maintenance Tips</h2>
+                <p>Keep your BMW performing at its best with these expert tips</p>
+            </div>
             
-            <div class="maintenance-tips">
+            <div class="tips-grid">
                 {% for tip in maintenance_tips %}
-                    <div class="tip-item">
-                        <div class="tip-icon">
-                            {{ tip.icon }}
-                        </div>
-                        <h3>{{ tip.title }}</h3>
-                        <p>{{ tip.desc }}</p>
-                    </div>
+                <div class="tip-card">
+                    <div class="tip-icon">{{ tip.icon | safe }}</div>
+                    <h3 class="tip-title">{{ tip.title | safe }}</h3>
+                    <p class="tip-desc">{{ tip.desc | safe }}</p>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta-section">
-        <div class="cta-container">
-            <h2>Ready to experience the BMW Hub difference?</h2>
-            <p>Schedule your service appointment today and see why we're Houston's preferred BMW specialist.</p>
-            <a href="{{ url_for('contact') }}" class="cta-button">Contact Us Now</a>
+    <!-- Brands We Service -->
+    <section class="brands-section section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>BMW Models We Service</h2>
+                <p>Expert repair and maintenance for all BMW models</p>
+            </div>
+            
+            <div class="models-grid">
+                {% for category, models in bmw_models.items() %}
+                <div class="model-category">
+                    <h3>{{ category }}</h3>
+                    <ul class="model-list">
+                        {% for model in models %}
+                        <li>{{ model }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    /* Additional styles for index page */
-    .about-brief {
-        padding: 80px 0;
-        background-color: #00243C;
-        color: white;
-    }
-    
-    .about-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    
-    .about-content .section-title, 
-    .about-content .section-description {
-        color: white;
-        text-align: center;
-    }
-    
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-    
-    .feature-item {
-        text-align: center;
-        padding: 30px;
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 5px;
-        transition: transform 0.3s;
-    }
-    
-    .feature-item:hover {
-        transform: translateY(-5px);
-    }
-    
-    .feature-item i {
-        font-size: 36px;
-        color: #0078D6;
-        margin-bottom: 20px;
-    }
-    
-    .feature-item h3 {
-        font-size: 20px;
-        margin-bottom: 15px;
-        color: white;
-    }
-    
-    .feature-item p {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 15px;
-    }
-    
-    .cta-section {
-        padding: 80px 0;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("{{ url_for('static', filename='images/cta-background.jpg') }}");
-        background-size: cover;
-        background-position: center;
-        text-align: center;
-        color: white;
-    }
-    
-    .cta-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    
-    .cta-section h2 {
-        font-size: 36px;
-        margin-bottom: 20px;
-        font-weight: 300;
-    }
-    
-    .cta-section p {
-        font-size: 18px;
-        margin-bottom: 30px;
-        opacity: 0.9;
-    }
-    
-    .cta-button {
-        display: inline-block;
-        background-color: #0078D6;
-        color: white;
-        padding: 15px 30px;
-        font-size: 16px;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-    
-    .cta-button:hover {
-        background-color: #005aa3;
-    }
-    
-    @media (max-width: 768px) {
-        .about-brief,
-        .cta-section {
-            padding: 60px 0;
-        }
-        
-        .cta-section h2 {
-            font-size: 28px;
-        }
-        
-        .cta-section p {
-            font-size: 16px;
-        }
-    }
-</style>
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/testimonials-slider.js') }}"></script>
 {% endblock %}

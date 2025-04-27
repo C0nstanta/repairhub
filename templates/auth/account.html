@@ -1,0 +1,505 @@
+{% extends "base.html" %}
+
+{% block title %}My Account - BMW Hub{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>My Account</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Account Section -->
+    <section class="account-section section-padding">
+        <div class="container">
+            <div class="account-container">
+                <!-- Sidebar -->
+                <div class="account-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <img src="{{ url_for('static', filename='images/default-avatar.jpg') }}" alt="{{ user.name }}">
+                        </div>
+                        <h3 class="user-name">{{ user.name }}</h3>
+                        <p class="user-email">{{ user.id }}</p>
+                        <p class="user-membership">Member since {{ user.created_at.strftime('%B %Y') }}</p>
+                    </div>
+                    
+                    <ul class="account-menu">
+                        <li><a href="#dashboard" class="active" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="#appointments" data-target="appointments"><i class="fas fa-calendar-alt"></i> My Appointments</a></li>
+                        <li><a href="#service-history" data-target="service-history"><i class="fas fa-history"></i> Service History</a></li>
+                        <li><a href="#profile" data-target="profile"><i class="fas fa-user"></i> Profile Settings</a></li>
+                        <li><a href="#password" data-target="password"><i class="fas fa-lock"></i> Change Password</a></li>
+                        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Content Sections -->
+                <div class="account-content">
+                    <!-- Dashboard -->
+                    <div id="dashboard" class="account-tab active">
+                        <h3>Dashboard</h3>
+                        
+                        <div class="dashboard-welcome">
+                            <h4>Welcome back, {{ user.name.split()[0] }}!</h4>
+                            <p>Your BMW deserves the best care. Here's a summary of your account:</p>
+                        </div>
+                        
+                        <div class="dashboard-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                                <div class="stat-content">
+                                    <h4>{{ user.appointments|length }}</h4>
+                                    <p>Upcoming Appointments</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-tools"></i></div>
+                                <div class="stat-content">
+                                    <h4>{{ user.service_history|length }}</h4>
+                                    <p>Completed Services</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                                <div class="stat-content">
+                                    {% if user.appointments and user.appointments[0].date %}
+                                        <h4>{{ user.appointments[0].date }}</h4>
+                                        <p>Next Appointment</p>
+                                    {% else %}
+                                        <h4>None</h4>
+                                        <p>Next Appointment</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-actions">
+                            <a href="{{ url_for('appointment') }}" class="action-card">
+                                <div class="action-icon"><i class="fas fa-calendar-plus"></i></div>
+                                <div class="action-content">
+                                    <h4>Schedule Service</h4>
+                                    <p>Book a new appointment for your BMW</p>
+                                </div>
+                                <div class="action-arrow"><i class="fas fa-chevron-right"></i></div>
+                            </a>
+                            
+                            <a href="#service-history" class="action-card" data-toggle="tab" data-target="service-history">
+                                <div class="action-icon"><i class="fas fa-file-alt"></i></div>
+                                <div class="action-content">
+                                    <h4>View Service Records</h4>
+                                    <p>See your complete service history</p>
+                                </div>
+                                <div class="action-arrow"><i class="fas fa-chevron-right"></i></div>
+                            </a>
+                        </div>
+                        
+                        {% if user.appointments %}
+                            <div class="upcoming-appointment">
+                                <h4>Your Next Appointment</h4>
+                                
+                                <div class="appointment-card">
+                                    <div class="appointment-date">
+                                        <div class="month">{{ user.appointments[0].date.split('-')[1] if '-' in user.appointments[0].date else 'May' }}</div>
+                                        <div class="day">{{ user.appointments[0].date.split('-')[2] if '-' in user.appointments[0].date else '01' }}</div>
+                                    </div>
+                                    
+                                    <div class="appointment-details">
+                                        <h5>
+                                            {% for service in services if service.id == user.appointments[0].service_id %}
+                                                {{ service.title }}
+                                            {% endfor %}
+                                        </h5>
+                                        <p><i class="far fa-clock"></i> {{ user.appointments[0].time }}</p>
+                                        <p><i class="fas fa-car"></i> {{ user.appointments[0].vehicle }}</p>
+                                        <span class="status {{ user.appointments[0].status }}">{{ user.appointments[0].status|capitalize }}</span>
+                                    </div>
+                                    
+                                    <div class="appointment-actions">
+                                        <a href="#" class="btn btn-sm">Reschedule</a>
+                                        <a href="#" class="btn btn-sm btn-text">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Appointments -->
+                    <div id="appointments" class="account-tab">
+                        <h3>My Appointments</h3>
+                        
+                        <div class="tab-actions">
+                            <a href="{{ url_for('appointment') }}" class="btn">Schedule New Appointment</a>
+                        </div>
+                        
+                        {% if user.appointments %}
+                            <div class="appointments-list">
+                                {% for appointment in user.appointments %}
+                                    <div class="appointment-card">
+                                        <div class="appointment-date">
+                                            <div class="month">{{ appointment.date.split('-')[1] if '-' in appointment.date else 'May' }}</div>
+                                            <div class="day">{{ appointment.date.split('-')[2] if '-' in appointment.date else '01' }}</div>
+                                        </div>
+                                        
+                                        <div class="appointment-details">
+                                            <h5>
+                                                {% for service in services if service.id == appointment.service_id %}
+                                                    {{ service.title }}
+                                                {% endfor %}
+                                            </h5>
+                                            <p><i class="far fa-clock"></i> {{ appointment.time }}</p>
+                                            <p><i class="fas fa-car"></i> {{ appointment.vehicle }}</p>
+                                            <span class="status {{ appointment.status }}">{{ appointment.status|capitalize }}</span>
+                                        </div>
+                                        
+                                        <div class="appointment-actions">
+                                            <a href="#" class="btn btn-sm">Reschedule</a>
+                                            <a href="#" class="btn btn-sm btn-text">Cancel</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-state">
+                                <div class="empty-icon"><i class="fas fa-calendar-times"></i></div>
+                                <h4>No Appointments</h4>
+                                <p>You don't have any upcoming appointments scheduled. Would you like to book a service?</p>
+                                <a href="{{ url_for('appointment') }}" class="btn">Schedule Service</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Service History -->
+                    <div id="service-history" class="account-tab">
+                        <h3>Service History</h3>
+                        
+                        {% if user.service_history %}
+                            <div class="service-history-list">
+                                {% for service_record in user.service_history %}
+                                    <div class="service-card">
+                                        <div class="service-icon">
+                                            <i class="fas fa-tools"></i>
+                                        </div>
+                                        
+                                        <div class="service-details">
+                                            <h5>{{ service_record.description }}</h5>
+                                            <p><i class="fas fa-calendar-alt"></i> {{ service_record.completed_at.strftime('%B %d, %Y') }}</p>
+                                            <p><i class="fas fa-car"></i> {{ service_record.vehicle }}</p>
+                                            <p><i class="fas fa-dollar-sign"></i> ${{ "%.2f"|format(service_record.cost) }}</p>
+                                        </div>
+                                        
+                                        <div class="service-actions">
+                                            <a href="#" class="btn btn-sm">View Details</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-state">
+                                <div class="empty-icon"><i class="fas fa-history"></i></div>
+                                <h4>No Service History</h4>
+                                <p>You don't have any service records yet. Book your first service with us!</p>
+                                <a href="{{ url_for('appointment') }}" class="btn">Schedule Service</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Profile Settings -->
+                    <div id="profile" class="account-tab">
+                        <h3>Profile Settings</h3>
+                        
+                        <form id="profileForm" action="{{ url_for('account_profile') }}" method="post" class="account-form">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name" class="form-label required">Full Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ user.name }}" required>
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="email" class="form-label required">Email Address</label>
+                                    <input type="email" id="email" name="email" class="form-control" value="{{ user.id }}" disabled>
+                                    <small class="form-text">Email cannot be changed</small>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" class="form-control" value="{{ user.phone }}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" {% if user.newsletter %}checked{% endif %}>
+                                    <label class="form-check-label" for="newsletter">
+                                        Subscribe to our newsletter for maintenance tips and special offers
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn">Update Profile</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Change Password -->
+                    <div id="password" class="account-tab">
+                        <h3>Change Password</h3>
+                        
+                        <form id="passwordForm" action="{{ url_for('change_password') }}" method="post" class="account-form">
+                            <div class="form-group">
+                                <label for="current_password" class="form-label required">Current Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="current_password" name="current_password" class="form-control" required>
+                                    <button type="button" class="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="form-error" id="currentPasswordError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="new_password" class="form-label required">New Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="new_password" name="new_password" class="form-control" required>
+                                    <button type="button" class="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="form-error" id="newPasswordError"></span>
+                                <small class="password-requirements">
+                                    Password must be at least 8 characters and include uppercase, lowercase, number, and special character
+                                </small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm_password" class="form-label required">Confirm New Password</label>
+                                <div class="password-field">
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                                    <button type="button" class="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="form-error" id="confirmPasswordError"></span>
+                            </div>
+                            
+                            <button type="submit" class="btn">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validator.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab Navigation
+        const menuLinks = document.querySelectorAll('.account-menu a');
+        const tabContents = document.querySelectorAll('.account-tab');
+        
+        // Action links that toggle tabs
+        const actionLinks = document.querySelectorAll('[data-toggle="tab"]');
+        
+        // Initialize tab navigation
+        function initTabs() {
+            // Menu links click handling
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('data-target');
+                    showTab(targetId);
+                });
+            });
+            
+            // Action links that toggle tabs
+            actionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('data-target');
+                    showTab(targetId);
+                });
+            });
+            
+            // Check for hash in URL
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                showTab(targetId);
+            }
+        }
+        
+        function showTab(targetId) {
+            // Hide all tabs
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all menu links
+            menuLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const targetTab = document.getElementById(targetId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+            
+            // Add active class to corresponding menu link
+            const activeMenuLink = document.querySelector(`.account-menu a[data-target="${targetId}"]`);
+            if (activeMenuLink) {
+                activeMenuLink.classList.add('active');
+            }
+            
+            // Update URL hash
+            window.location.hash = targetId;
+            
+            // Scroll to top of tab content on mobile
+            if (window.innerWidth < 768) {
+                const accountContent = document.querySelector('.account-content');
+                if (accountContent) {
+                    accountContent.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+        
+        // Initialize tabs
+        initTabs();
+        
+        // Password toggle functionality
+        const toggleButtons = document.querySelectorAll('.toggle-password');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const passwordField = this.previousElementSibling;
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Toggle icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        });
+        
+        // Form validation for profile form
+        const profileForm = document.getElementById('profileForm');
+        if (profileForm) {
+            profileForm.addEventListener('submit', function(event) {
+                const nameField = document.getElementById('name');
+                let isValid = true;
+                
+                if (!nameField.value.trim()) {
+                    nameField.classList.add('error');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        }
+        
+        // Form validation for password form
+        const passwordForm = document.getElementById('passwordForm');
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', function(event) {
+                const currentPasswordField = document.getElementById('current_password');
+                const newPasswordField = document.getElementById('new_password');
+                const confirmPasswordField = document.getElementById('confirm_password');
+                
+                const currentPasswordError = document.getElementById('currentPasswordError');
+                const newPasswordError = document.getElementById('newPasswordError');
+                const confirmPasswordError = document.getElementById('confirmPasswordError');
+                
+                let isValid = true;
+                
+                // Reset errors
+                [currentPasswordError, newPasswordError, confirmPasswordError].forEach(error => {
+                    if (error) {
+                        error.textContent = '';
+                        error.style.display = 'none';
+                    }
+                });
+                
+                [currentPasswordField, newPasswordField, confirmPasswordField].forEach(field => {
+                    field.classList.remove('error');
+                });
+                
+                // Validate current password
+                if (!currentPasswordField.value) {
+                    currentPasswordField.classList.add('error');
+                    currentPasswordError.textContent = 'Please enter your current password';
+                    currentPasswordError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate new password
+                if (!newPasswordField.value) {
+                    newPasswordField.classList.add('error');
+                    newPasswordError.textContent = 'Please enter a new password';
+                    newPasswordError.style.display = 'block';
+                    isValid = false;
+                } else if (newPasswordField.value.length < 8) {
+                    newPasswordField.classList.add('error');
+                    newPasswordError.textContent = 'Password must be at least 8 characters';
+                    newPasswordError.style.display = 'block';
+                    isValid = false;
+                } else if (!isStrongPassword(newPasswordField.value)) {
+                    newPasswordField.classList.add('error');
+                    newPasswordError.textContent = 'Password must include uppercase, lowercase, number, and special character';
+                    newPasswordError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate confirm password
+                if (!confirmPasswordField.value) {
+                    confirmPasswordField.classList.add('error');
+                    confirmPasswordError.textContent = 'Please confirm your new password';
+                    confirmPasswordError.style.display = 'block';
+                    isValid = false;
+                } else if (confirmPasswordField.value !== newPasswordField.value) {
+                    confirmPasswordField.classList.add('error');
+                    confirmPasswordError.textContent = 'Passwords do not match';
+                    confirmPasswordError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        }
+        
+        // Helper function for password validation
+        function isStrongPassword(password) {
+            const hasUppercase = /[A-Z]/.test(password);
+            const hasLowercase = /[a-z]/.test(password);
+            const hasDigit = /\d/.test(password);
+            const hasSpecial = /[^A-Za-z0-9]/.test(password);
+            
+            return hasUppercase && hasLowercase && hasDigit && hasSpecial;
+        }
+    });
+</script>
+{% endblock %}

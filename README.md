@@ -1,185 +1,184 @@
-# BMW Hub Website Implementation Guide
+# BMW Hub Website
 
-This guide will help you implement the new simplified design for your BMW Hub website with a video background, matching the exact design you provided.
+A modern, feature-rich website for BMW Hub automotive service center, featuring:
+
+- Modern responsive design with BMW styling
+- Video background hero section
+- Enhanced service pages
+- User authentication system
+- Multi-step appointment scheduling
+- Customer dashboard
+
+## Quick Start
+
+1. Clone the repository:
+```
+git clone https://github.com/your-username/bmw-hub-website.git
+cd bmw-hub-website
+```
+
+2. Create and activate a virtual environment:
+```
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```
+pip install -r requirements.txt
+```
+
+4. Run the application:
+```
+python app.py
+```
+
+5. Visit `http://localhost:5000` in your browser.
 
 ## Project Structure
 
 ```
 bmw_hub/
-├── app.py                     # Main Flask application file
-├── config.py                  # Configuration and data
+├── app.py                      # Main Flask application
+├── config.py                   # Configuration and data
+├── auth.py                     # Authentication module
 │
-├── static/                    # Static files
-│   ├── css/                   # CSS stylesheets
-│   │   ├── simplified.css     # New main stylesheet
+├── static/                     # Static files
+│   ├── css/                    # CSS stylesheets
+│   │   ├── modern.css          # Main stylesheet
+│   │   ├── responsive.css      # Responsive styles
+│   │   ├── appointment.css     # Appointment page styles
+│   │   ├── service-detail.css  # Service detail styles
+│   │   ├── account.css         # Account page styles
+│   │   └── auth.css            # Authentication styles
 │   │
-│   ├── js/                    # JavaScript files
-│   │   ├── simplified.js      # New JavaScript file
+│   ├── js/                     # JavaScript files
+│   │   ├── main.js             # Main JavaScript
+│   │   ├── video-bg.js         # Video background handler
+│   │   ├── appointment.js      # Appointment scheduling
+│   │   ├── form-validator.js   # Form validation
+│   │   └── testimonials-slider.js # Testimonials carousel
 │   │
-│   ├── images/                # Image assets
-│   │   ├── phone-icon.png     # Phone icon for header
-│   │   ├── email-icon.png     # Email icon for header
-│   │   ├── hero-bg.jpg        # Fallback hero image
-│   │   └── ...                # Other images
+│   ├── images/                 # Image assets
+│   │   ├── logo.png            # BMW Hub logo
+│   │   ├── logo-white.png      # White version for footer
+│   │   ├── default-avatar.jpg  # Default user avatar
+│   │   ├── hero-bg.jpg         # Fallback hero image
+│   │   ├── about-workshop.jpg  # Workshop image
+│   │   ├── services/           # Service images folder
+│   │   ├── testimonials/       # Testimonial images
+│   │   └── icons/              # UI icons
 │   │
-│   └── videos/                # Video assets
-│       └── background.mp4     # Hero background video
+│   └── videos/                 # Video assets
+│       └── bmw-hero.mp4        # Hero background video
 │
-└── templates/                 # HTML templates
-    ├── base.html              # Updated base template
-    ├── index.html             # Updated homepage
-    ├── services.html          # Updated services page
-    ├── about.html             # Updated about page
-    └── contact.html           # Updated contact page
+└── templates/                  # HTML templates
+    ├── base.html               # Base template
+    ├── index.html              # Homepage
+    ├── services.html           # Services overview
+    ├── service-detail.html     # Individual service page
+    ├── about.html              # About page
+    ├── contact.html            # Contact page
+    ├── appointment.html        # Appointment booking
+    ├── 404.html                # Error page
+    ├── 500.html                # Server error page
+    └── auth/                   # Authentication templates
+        ├── login.html          # Login page
+        ├── register.html       # Registration page
+        ├── forgot_password.html # Password recovery
+        └── account.html        # User account page
 ```
 
-## Implementation Steps
+## Features
 
-### 1. Prepare Video and Images
+### Modern Design
+- Professional layout with BMW-inspired color scheme
+- Responsive design for all device sizes
+- Video background on the homepage
+- Enhanced typography and UI components
 
-1. **Background Video:**
-   - Create or obtain a high-quality video of a BMW (ideally 1080p)
-   - Format as MP4 with H.264 encoding
-   - Length: 20-30 seconds, designed to loop smoothly
-   - File size: Keep under 10MB for better loading
-   - Save as `background.mp4` in the `static/videos/` directory
+### User Account System
+- Secure user registration and login
+- Password recovery functionality
+- User profile management
+- Appointment history tracking
 
-2. **Essential Images:**
-   - `phone-icon.png`: Small icon for the phone number in header
-   - `email-icon.png`: Small icon for the email in header
-   - `hero-bg.jpg`: Fallback image similar to the video for non-video browsers
+### Services
+- Detailed service pages with benefits and FAQs
+- Service request forms
+- Related services recommendations
+- Interactive service process visualization
 
-### 2. Update Templates
+### Appointment Scheduling
+- Multi-step booking process
+- Interactive calendar and time selection
+- Service selection cards
+- Appointment confirmation and tracking
 
-Replace your existing templates with the new ones:
-- `base.html`: The main layout with the purple styling
-- `index.html`: Homepage with video background
-- `services.html`: Services listing page
-- `about.html`: About us page
-- `contact.html`: Contact form page
+### Testimonials
+- Customer testimonial carousel
+- Rating display
+- Photo integration
 
-### 3. Update CSS and JavaScript
+## Configuration
 
-Replace or add the new CSS and JavaScript files:
-- `static/css/simplified.css`: New main stylesheet
-- `static/js/simplified.js`: New JavaScript file
+Core website content can be modified in `config.py`:
+- Company information
+- Service descriptions
+- Team member profiles
+- BMW models list
+- FAQs
+- Testimonials
 
-### 4. Update app.py
+## Deployment
 
-Replace your existing `app.py` with the updated version to ensure all routes work correctly with the new templates.
+For production deployment, set the following environment variables:
+- `SECRET_KEY`: A secure random key for session management
+- `ADMIN_EMAIL`: Admin user email
+- `ADMIN_PASSWORD`: Admin user password
 
-### 5. Testing the Implementation
+### Deployment Steps
+1. Set up a production web server (Nginx, Apache)
+2. Use Gunicorn as WSGI server
+3. Set up HTTPS with SSL certificate
+4. Configure environment variables
+5. Replace the mock database with a real database (SQLite, PostgreSQL, etc.)
 
-1. **Run the Flask application:**
-   ```
-   python app.py
-   ```
+## Media Requirements
 
-2. **Test all pages:**
-   - Homepage with video background
-   - Services page
-   - About page
-   - Contact page
-   - Form submissions
+### Video Background
+- Format: MP4 with H.264 encoding
+- Resolution: 1920x1080 (minimum)
+- Duration: 20-30 seconds, looping seamlessly
+- File size: <10MB for better loading
+- Location: `/static/videos/bmw-hero.mp4`
 
-3. **Test on different devices:**
-   - Desktop browsers
-   - Mobile devices
-   - Tablets
+### Essential Images
+- Logo: Both regular and white versions
+- Service images: One per service, consistent style
+- Team photos: Professional headshots
+- Testimonial photos: Customer images or stock photos
+- Facility photos: Workshop/garage images
 
-4. **Check video behavior:**
-   - Autoplay on desktop
-   - Play button on mobile
-   - Fallback to image when needed
-
-## Design Customization
+## Customization
 
 ### Color Scheme
-
-The design uses a purple color scheme as shown in your reference:
-- Primary purple: `#800080`
-- Darker purple for hover states: `#600060`
-- Text color: `#333`
-- Background color: `#fff`
-- Light background sections: `#f8f8f8`
-
-You can modify these colors in the `simplified.css` file to match your preferred branding.
+The default color scheme can be modified in `modern.css`:
+- Primary Blue: `#1c69d4` (BMW Blue)
+- Secondary Gray: `#333333`
+- Light Gray: `#f5f5f5`
+- Accent color: `#c62828`
 
 ### Typography
+The site uses Roboto as the primary font family, which can be changed in the CSS files.
 
-The design uses Arial as the primary font. If you'd like to use a different font:
-1. Add the font import at the top of the CSS file
-2. Update the `font-family` property in the `body` selector
+## Browser Compatibility
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
+- iOS Safari 13+
+- Android Chrome 80+
 
-### Navigation
-
-The navigation is currently set up as bullet points to match your provided design. If you'd like a different style of navigation, you can modify the `main-menu` class in the `simplified.css` file.
-
-## Adding New Content
-
-### Adding New Services
-
-To add new services, update the `services` list in the `config.py` file:
-
-```python
-services = [
-    {
-        'id': 7,  # Use the next available ID
-        'title': 'New Service Name',
-        'short_desc': 'Short description of the service',
-        'image': 'service-7.jpg',
-        'full_desc': 'Full detailed description of the service',
-        'icon': '🔧'  # Choose an appropriate emoji or icon
-    },
-    # ... existing services
-]
-```
-
-### Adding Team Members
-
-To add new team members, update the `team_members` list in the `config.py` file:
-
-```python
-team_members = [
-    {
-        'name': 'New Team Member',
-        'title': 'Their Position',
-        'bio': 'Biography text for the team member',
-        'image': 'new-team-member.jpg'
-    },
-    # ... existing team members
-]
-```
-
-## Troubleshooting
-
-### Video Not Playing
-
-If the video background doesn't play:
-1. Check that the video file is correctly placed in `static/videos/background.mp4`
-2. Verify the video format is MP4 with H.264 encoding
-3. Check browser console for errors
-4. The fallback image should display automatically if video playback fails
-
-### Mobile Display Issues
-
-If there are layout issues on mobile:
-1. Check the responsive CSS in `simplified.css`
-2. Use browser developer tools to identify specific CSS issues
-3. Add additional media queries as needed
-
-### Form Submission Problems
-
-If contact form submissions aren't working:
-1. Check form action URL in `contact.html`
-2. Verify the route handler in `app.py`
-3. Check for JavaScript validation errors in browser console
-
-## Next Steps
-
-After implementing the basic design, consider these enhancements:
-1. Add a real email sending functionality to the contact form
-2. Implement a database to store form submissions
-3. Add a gallery section with BMW repair photos
-4. Create a blog or news section for repair tips
-5. Add customer testimonials section
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.

@@ -5,144 +5,207 @@
 {% block content %}
     <!-- Page Header -->
     <section class="page-header">
-        <div class="header-content">
-            <h1>About BMW Hub</h1>
-            <p>Houston's premier independent BMW repair and maintenance specialist</p>
+        <div class="container">
+            <div class="page-header-content">
+                <h1>About BMW Hub</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about-section">
+    <section class="about-section section-padding">
         <div class="container">
-            <div class="about-intro">
-                <h2>Our Story</h2>
-                <div class="about-intro-content">
-                    <div class="about-text">
-                        <p>{{ company_info.about_long }}</p>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="about-image">
+                        <img src="{{ url_for('static', filename='images/about-workshop.jpg') }}" alt="BMW Hub Workshop" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="section-heading">
+                            <h2>Our Story</h2>
+                            <div class="heading-line"></div>
+                        </div>
+                        <p>{{ company_info.about_long|safe }}</p>
                         <div class="about-stats">
-                            <div class="stat">
+                            <div class="stat-item">
                                 <div class="stat-number">{{ now.year - company_info.year_founded }}</div>
-                                <div class="stat-label">Years of Experience</div>
+                                <div class="stat-text">Years Experience</div>
                             </div>
-                            <div class="stat">
-                                <div class="stat-number">1000+</div>
-                                <div class="stat-label">Satisfied Customers</div>
+                            <div class="stat-item">
+                                <div class="stat-number">5000+</div>
+                                <div class="stat-text">Satisfied Clients</div>
                             </div>
-                            <div class="stat">
-                                <div class="stat-number">15+</div>
-                                <div class="stat-label">BMW Certified Technicians</div>
+                            <div class="stat-item">
+                                <div class="stat-number">20+</div>
+                                <div class="stat-text">BMW Models Serviced</div>
                             </div>
                         </div>
                     </div>
-                    <div class="about-image">
-                        <img src="{{ url_for('static', filename='images/about-image.jpg') }}" alt="BMW Hub Facility">
-                    </div>
                 </div>
             </div>
-            
-            <div class="about-features">
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-section section-padding bg-light">
+        <div class="container">
+            <div class="section-heading text-center mb-5">
                 <h2>Why Choose BMW Hub</h2>
-                <div class="features-grid">
+                <div class="heading-line"></div>
+                <p>Experience the BMW Hub difference with our expert team and premium service</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>BMW Certified Technicians</h3>
+                        <p>Our technicians have specialized BMW training and certification to ensure expert service for your vehicle.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-tools"></i>
                         </div>
-                        <h3>BMW Expertise</h3>
-                        <p>Our technicians have over 20 years of experience working specifically with BMW vehicles.</p>
+                        <h3>Advanced Diagnostics</h3>
+                        <p>We use the latest diagnostic technology specifically designed for BMW vehicles to identify issues accurately.</p>
                     </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Quality Parts</h3>
+                        <p>We use only genuine BMW parts or OEM-quality equivalents to ensure optimal performance and reliability.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
                         <h3>Competitive Pricing</h3>
-                        <p>We provide dealership-quality service at a fraction of the dealership price.</p>
+                        <p>Get dealership-quality service at a fraction of the cost with our transparent pricing policy.</p>
                     </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-cogs"></i>
+                            <i class="fas fa-history"></i>
                         </div>
-                        <h3>Quality Parts</h3>
-                        <p>We use only high-quality OEM or equivalent parts for all repairs and maintenance.</p>
+                        <h3>Warranty on Services</h3>
+                        <p>All our repairs and services come with a comprehensive warranty to ensure your peace of mind.</p>
                     </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-laptop"></i>
+                            <i class="fas fa-handshake"></i>
                         </div>
-                        <h3>Advanced Diagnostics</h3>
-                        <p>Our shop is equipped with the latest diagnostic technology specifically for BMW vehicles.</p>
+                        <h3>Personalized Service</h3>
+                        <p>We provide attentive, personalized service tailored to your specific BMW model and needs.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Our Values Section -->
-    <section class="values-section">
-        <div class="container">
-            <h2 class="section-title">Our Values</h2>
-            <p class="section-description">The principles that guide everything we do at BMW Hub</p>
-            
-            <div class="values-grid">
-                <div class="value-item">
-                    <div class="value-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3>Excellence</h3>
-                    <p>We strive for excellence in every service we provide, never cutting corners or compromising on quality.</p>
-                </div>
-                <div class="value-item">
-                    <div class="value-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Integrity</h3>
-                    <p>We operate with complete transparency, honesty, and fairness in all of our business practices.</p>
-                </div>
-                <div class="value-item">
-                    <div class="value-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Customer Focus</h3>
-                    <p>Our customers are at the center of everything we do, and their satisfaction is our highest priority.</p>
-                </div>
-                <div class="value-item">
-                    <div class="value-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Expertise</h3>
-                    <p>We continuously invest in training and education to stay at the forefront of BMW service technology.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="team-section">
+    <section class="team-section section-padding">
         <div class="container">
-            <h2 class="section-title">Meet Our Team</h2>
-            <p class="section-description">Our experienced professionals are passionate about BMW vehicles and dedicated to providing exceptional service</p>
+            <div class="section-heading text-center mb-5">
+                <h2>Meet Our Expert Team</h2>
+                <div class="heading-line"></div>
+                <p>Our certified professionals with years of BMW experience</p>
+            </div>
             
-            <div class="team-members">
+            <div class="row">
                 {% for member in team_members %}
-                    <div class="team-member">
-                        <div class="member-image">
-                            <img src="{{ url_for('static', filename='images/team-placeholder.jpg') }}" alt="{{ member.name }}">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="team-card">
+                        <div class="team-image">
+                            <img src="{{ url_for('static', filename='images/' + member.image) }}" alt="{{ member.name }}" class="img-fluid">
                         </div>
-                        <h3>{{ member.name }}</h3>
-                        <p class="member-title">{{ member.title }}</p>
-                        <p>{{ member.bio }}</p>
+                        <div class="team-content">
+                            <h3>{{ member.name }}</h3>
+                            <p class="position">{{ member.title }}</p>
+                            <p class="bio">{{ member.bio }}</p>
+                            <div class="specialties">
+                                {% for specialty in member.specialties %}
+                                <span class="specialty-tag">{{ specialty }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="about-cta">
+    <!-- Testimonials Section -->
+    <section class="testimonials-section section-padding bg-light">
+        <div class="container">
+            <div class="section-heading text-center mb-5">
+                <h2>What Our Customers Say</h2>
+                <div class="heading-line"></div>
+                <p>Don't just take our word for it - hear from our satisfied customers</p>
+            </div>
+            
+            <div class="testimonials-slider">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">{{ testimonial.text }}</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/' + testimonial.image) }}" alt="{{ testimonial.name }}">
+                        </div>
+                        <div class="author-info">
+                            <h4>{{ testimonial.name }}</h4>
+                            <p>{{ testimonial.vehicle }} Owner</p>
+                            <div class="author-rating">
+                                {% for i in range(testimonial.rating) %}
+                                <i class="fas fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(5 - testimonial.rating) %}
+                                <i class="far fa-star"></i>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-banner">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to experience the BMW Hub difference?</h2>
-                <p>Contact us today to book your appointment or learn more about our services.</p>
-                <a href="{{ url_for('contact') }}" class="cta-button">Contact Us</a>
+                <h2>Ready to experience expert BMW service?</h2>
+                <p>Book your appointment today and see why we're Houston's preferred BMW specialist.</p>
+                <a href="{{ url_for('appointment') }}" class="btn btn-primary btn-lg">Schedule Service</a>
             </div>
         </div>
     </section>
@@ -150,393 +213,237 @@
 
 {% block extra_css %}
 <style>
-    /* Container styles */
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+    /* About Page Specific Styles */
+    .about-image {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
-    /* About intro styles */
-    .about-section {
-        padding: 80px 0;
+    .section-heading h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 15px;
     }
     
-    .about-intro h2,
-    .about-features h2 {
-        font-size: 30px;
-        margin-bottom: 30px;
-        color: #000;
-        font-weight: 300;
-        position: relative;
-        padding-bottom: 15px;
-    }
-    
-    .about-intro h2:after,
-    .about-features h2:after {
-        content: '';
-        position: absolute;
-        width: 60px;
+    .heading-line {
+        width: 70px;
         height: 3px;
-        background-color: #0078D6;
-        bottom: 0;
-        left: 0;
+        background-color: var(--primary-color);
+        margin-bottom: 20px;
     }
     
-    .about-intro-content {
-        display: grid;
-        grid-template-columns: 3fr 2fr;
-        gap: 40px;
-        align-items: center;
-    }
-    
-    .about-text p {
-        margin-bottom: 30px;
-        line-height: 1.8;
-        color: #666;
+    .section-heading.text-center .heading-line {
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .about-stats {
         display: flex;
-        justify-content: space-between;
-        margin-top: 40px;
+        margin-top: 30px;
     }
     
-    .stat {
+    .stat-item {
+        flex: 1;
         text-align: center;
+        padding: 20px;
+        background-color: var(--light-gray);
+        border-radius: 8px;
+        margin-right: 15px;
+    }
+    
+    .stat-item:last-child {
+        margin-right: 0;
     }
     
     .stat-number {
-        font-size: 42px;
-        font-weight: bold;
-        color: #0078D6;
-        margin-bottom: 10px;
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 5px;
     }
     
-    .stat-label {
+    .stat-text {
         font-size: 14px;
-        color: #666;
-        text-transform: uppercase;
-    }
-    
-    .about-image {
-        border-radius: 5px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .about-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    /* About features styles */
-    .about-features {
-        margin-top: 80px;
-    }
-    
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 30px;
+        color: var(--dark-gray);
     }
     
     .feature-card {
-        background-color: #f8f8f8;
+        background-color: var(--white);
         padding: 30px;
-        border-radius: 5px;
-        transition: transform 0.3s, box-shadow 0.3s;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        height: 100%;
+        transition: var(--transition);
     }
     
     .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
     
     .feature-icon {
-        font-size: 40px;
-        color: #0078D6;
+        font-size: 36px;
+        color: var(--primary-color);
         margin-bottom: 20px;
-        display: inline-block;
-        width: 80px;
-        height: 80px;
-        line-height: 80px;
-        background-color: white;
-        border-radius: 50%;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     .feature-card h3 {
         font-size: 20px;
-        color: #000;
+        font-weight: 700;
+        color: var(--secondary-color);
         margin-bottom: 15px;
     }
     
-    .feature-card p {
-        color: #666;
-        margin-bottom: 0;
-    }
-    
-    /* Values section styles */
-    .values-section {
-        padding: 80px 0;
-        background-color: #00243C;
-        color: white;
-    }
-    
-    .values-section .section-title,
-    .values-section .section-description {
-        color: white;
-        text-align: center;
-    }
-    
-    .values-section .section-title:after {
-        background-color: white;
-    }
-    
-    .values-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-    
-    .value-item {
-        text-align: center;
-        padding: 30px;
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 5px;
-        transition: transform 0.3s;
-    }
-    
-    .value-item:hover {
-        transform: translateY(-5px);
-    }
-    
-    .value-icon {
-        font-size: 36px;
-        color: #0078D6;
-        margin-bottom: 20px;
-    }
-    
-    .value-item h3 {
-        font-size: 20px;
-        margin-bottom: 15px;
-        color: white;
-    }
-    
-    .value-item p {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 15px;
-    }
-    
-    /* Team section styles */
-    .team-section {
-        padding: 80px 0;
-        background-color: #f8f8f8;
-    }
-    
-    .team-section .section-title,
-    .team-section .section-description {
-        text-align: center;
-    }
-    
-    .team-section .section-title:after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .team-members {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-    
-    .team-member {
-        background-color: white;
-        border-radius: 5px;
+    .team-card {
+        background-color: var(--white);
+        border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        transition: transform 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        height: 100%;
+        transition: var(--transition);
     }
     
-    .team-member:hover {
-        transform: translateY(-5px);
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
     
-    .member-image {
-        height: 280px;
+    .team-image {
+        height: 250px;
         overflow: hidden;
     }
     
-    .member-image img {
+    .team-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
     
-    .team-member h3 {
+    .team-content {
+        padding: 20px;
+    }
+    
+    .team-content h3 {
         font-size: 20px;
-        color: #000;
-        margin: 20px 20px 5px;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 5px;
     }
     
-    .member-title {
-        font-weight: normal;
-        color: #0078D6;
-        margin: 0 20px 15px;
-        display: block;
-        font-size: 15px;
-    }
-    
-    .team-member p {
-        color: #666;
+    .position {
         font-size: 14px;
-        margin: 0 20px 20px;
-        line-height: 1.6;
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-bottom: 15px;
     }
     
-    /* CTA styles */
-    .about-cta {
-        padding: 80px 0;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("{{ url_for('static', filename='images/cta-background.jpg') }}");
-        background-size: cover;
-        background-position: center;
+    .bio {
+        font-size: 14px;
+        color: var(--dark-gray);
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .specialties {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .specialty-tag {
+        display: inline-block;
+        padding: 3px 8px;
+        font-size: 12px;
+        background-color: rgba(28, 105, 212, 0.1);
+        color: var(--primary-color);
+        border-radius: 4px;
+    }
+    
+    .cta-banner {
+        background-color: var(--primary-color);
+        padding: 60px 0;
+        color: var(--white);
+    }
+    
+    .cta-content {
         text-align: center;
-        color: white;
+        max-width: 800px;
+        margin: 0 auto;
     }
     
     .cta-content h2 {
-        font-size: 36px;
-        margin-bottom: 20px;
-        font-weight: 300;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 15px;
     }
     
     .cta-content p {
         font-size: 18px;
         margin-bottom: 30px;
-        opacity: 0.9;
     }
     
-    .cta-button {
-        display: inline-block;
-        background-color: #0078D6;
-        color: white;
-        padding: 15px 30px;
+    .btn-primary {
+        background-color: var(--white);
+        color: var(--primary-color);
+        border: none;
+        padding: 12px 30px;
         font-size: 16px;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
+        font-weight: 500;
+        border-radius: 4px;
+        transition: var(--transition);
     }
     
-    .cta-button:hover {
-        background-color: #005aa3;
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
     }
     
-    /* Section Title */
-    .section-title {
-        font-size: 36px;
-        margin-bottom: 20px;
-        color: #000;
-        font-weight: 300;
-        position: relative;
-        padding-bottom: 15px;
+    .btn-lg {
+        padding: 15px 40px;
+        font-size: 18px;
     }
     
-    .section-title:after {
-        content: '';
-        position: absolute;
-        width: 80px;
-        height: 3px;
-        background-color: #0078D6;
-        bottom: 0;
-        left: 0;
-    }
-    
-    .section-description {
-        margin-bottom: 30px;
-        color: #666;
-        max-width: 700px;
-    }
-    
-    /* Responsive styles */
-    @media (max-width: 992px) {
-        .about-intro-content {
-            grid-template-columns: 1fr;
-        }
-        
-        .about-image {
-            margin-top: 30px;
+    /* Responsive Styles */
+    @media (max-width: 991px) {
+        .section-heading h2 {
+            font-size: 28px;
         }
         
         .about-stats {
-            flex-wrap: wrap;
-            gap: 20px;
+            flex-direction: column;
         }
         
-        .stat {
-            flex: 1 0 45%;
-            margin-bottom: 20px;
+        .stat-item {
+            margin-right: 0;
+            margin-bottom: 15px;
         }
     }
     
-    @media (max-width: 768px) {
-        .about-section,
-        .values-section,
-        .team-section,
-        .about-cta {
-            padding: 60px 0;
+    @media (max-width: 767px) {
+        .section-heading h2 {
+            font-size: 24px;
         }
         
         .stat-number {
-            font-size: 32px;
+            font-size: 24px;
         }
         
         .cta-content h2 {
-            font-size: 28px;
+            font-size: 24px;
         }
         
         .cta-content p {
             font-size: 16px;
-        }
-        
-        .section-title {
-            font-size: 28px;
         }
     }
 </style>
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add animation to feature cards
-        const featureCards = document.querySelectorAll('.feature-card');
-        
-        if (featureCards.length && window.IntersectionObserver) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            featureCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
-            });
-        }
-    });
-</script>
+<script src="{{ url_for('static', filename='js/testimonials-slider.js') }}"></script>
 {% endblock %}

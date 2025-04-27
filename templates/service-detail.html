@@ -2,37 +2,55 @@
 
 {% block title %}{{ service.title }} - BMW Hub{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/service-detail.css') }}">
+{% endblock %}
+
 {% block content %}
     <!-- Page Header -->
     <section class="page-header">
-        <div class="header-content">
-            <h1>{{ service.title }}</h1>
-            <p>{{ service.short_desc }}</p>
+        <div class="container">
+            <div class="page-header-content">
+                <h1>{{ service.title | safe }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('services_page') }}">Services</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ service.title | safe }}</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </section>
 
     <!-- Service Detail Section -->
-    <section class="service-detail-section">
+    <section class="service-detail section-padding">
         <div class="container">
+            <div class="service-detail-header">
+                <div class="service-icon">{{ service.icon | safe }}</div>
+                <h2>{{ service.title }}</h2>
+                <p class="service-short-desc">{{ service.short_desc | safe }}</p>
+            </div>
+            
             <div class="service-detail-content">
-                <div class="service-image-container">
-                    <img src="{{ url_for('static', filename='images/' + service.image) }}" alt="{{ service.title }}" class="service-main-image">
-                </div>
-                <div class="service-description">
-                    <div class="service-icon">{{ service.icon }}</div>
-                    <h2>About This Service</h2>
-                    <p>{{ service.full_desc }}</p>
+                <div class="service-detail-main">
+                    <div class="service-image">
+                        <img src="{{ url_for('static', filename='images/services/' + service.image) }}" alt="{{ service.title }}">
+                    </div>
                     
-                    <div class="service-benefits">
-                        <h3>Why Choose BMW Hub for {{ service.title }}</h3>
-                        <ul class="benefits-list">
+                    <div class="service-detail-description">
+                        <h3>About This Service</h3>
+                        <p>{{ service.full_desc | safe }}</p>
+                        
+                        <h3>Why Choose BMW Hub for {{ service.title | safe }}</h3>
+                        <ul class="service-benefits">
                             <li>
                                 <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
-                                <span class="benefit-text">Certified BMW technicians with specialized training</span>
+                                <span class="benefit-text">BMW Certified Technicians with specialized training</span>
                             </li>
                             <li>
                                 <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
-                                <span class="benefit-text">State-of-the-art diagnostic equipment</span>
+                                <span class="benefit-text">State-of-the-art diagnostic equipment specifically for BMW</span>
                             </li>
                             <li>
                                 <span class="benefit-icon"><i class="fas fa-check-circle"></i></span>
@@ -47,428 +65,275 @@
                                 <span class="benefit-text">Comprehensive warranty on all work performed</span>
                             </li>
                         </ul>
+                        
+                        <div class="service-actions">
+                            <a href="{{ url_for('appointment') }}" class="btn">Schedule This Service</a>
+                            <a href="{{ url_for('contact') }}" class="btn btn-secondary">Request a Quote</a>
+                        </div>
                     </div>
                     
-                    <div class="service-cta">
-                        <a href="{{ url_for('contact') }}" class="service-button">Schedule This Service</a>
+                    <!-- Service Process -->
+                    <div class="service-process">
+                        <h3>Our {{ service.title }} Process</h3>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Inspection & Diagnosis</h4>
+                                    <p>Our technicians perform a comprehensive inspection to accurately diagnose the issue.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="process-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Detailed Estimate</h4>
+                                    <p>We provide a transparent estimate with detailed breakdown of parts and labor.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="process-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Quality Service</h4>
+                                    <p>Our certified technicians perform the service using proper tools and quality parts.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="process-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Final Inspection</h4>
+                                    <p>We conduct a thorough quality check to ensure the service meets our high standards.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Section -->
+                    <div class="service-faq">
+                        <h3>Frequently Asked Questions</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>How long does this service typically take?</h4>
+                                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Most {{ service.title.lower() }} services can be completed within 1-3 hours, depending on the specific requirements and the condition of your BMW. For more complex issues, we may need to keep your vehicle for a full day. We'll provide you with an estimated completion time when you bring your vehicle in.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>Do you provide a warranty for this service?</h4>
+                                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Yes, all services performed at BMW Hub come with a comprehensive warranty. Parts are covered for 12 months/12,000 miles, and our labor is guaranteed for 6 months. This ensures your peace of mind and demonstrates our confidence in the quality of our work.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>How often should I have this service performed?</h4>
+                                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>The recommended interval for {{ service.title.lower() }} varies depending on your specific BMW model, driving habits, and conditions. Generally, we recommend following BMW's maintenance schedule, which usually suggests this service every [specific interval]. Our technicians can provide a personalized recommendation based on your vehicle's needs.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>What are the signs that I need this service?</h4>
+                                    <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Common signs that indicate you may need {{ service.title.lower() }} include [specific symptoms]. If you notice any of these issues, it's best to schedule an appointment as soon as possible to prevent further damage and more costly repairs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-detail-sidebar">
+                    <!-- Service Request Form -->
+                    <div class="sidebar-widget service-request">
+                        <h3>Request This Service</h3>
+                        <form class="quick-form" action="{{ url_for('contact') }}" method="post">
+                            <input type="hidden" name="service" value="{{ service.id }}">
+                            
+                            <div class="form-group">
+                                <label for="name" class="form-label required">Your Name</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label required">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label required">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea id="message" name="message" class="form-control" rows="3"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Request Service</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Other Services -->
+                    <div class="sidebar-widget">
+                        <h3>Other Services</h3>
+                        <ul class="service-list">
+                            {% for s in services if s.id != service.id %}
+                                <li>
+                                    <a href="{{ url_for('service_detail', service_id=s.id) }}">
+                                        <span class="service-icon-small">{{ s.icon | safe }}</span>
+                                        <span>{{ s.title | safe }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="sidebar-widget contact-widget">
+                        <h3>Need Help?</h3>
+                        <p>Have questions about our {{ service.title | safe }} service? Contact us directly:</p>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <a href="tel:{{ company_info.phone }}">{{ company_info.phone | safe }}</a>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:{{ company_info.email }}">{{ company_info.email | safe }}</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Service Process Section -->
-    <section class="service-process-section">
-        <div class="container">
-            <h2 class="section-title">Our {{ service.title }} Process</h2>
-            <p class="section-description">How we ensure the highest quality service for your BMW</p>
-            
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Initial Assessment</h3>
-                        <p>We perform a comprehensive inspection to identify all service needs and provide an accurate estimate.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Detailed Diagnostics</h3>
-                        <p>Our BMW-specific diagnostic equipment identifies any issues requiring attention.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Expert Service</h3>
-                        <p>Our certified technicians perform the service using quality parts and proven procedures.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Quality Check</h3>
-                        <p>Every service is verified through a comprehensive quality inspection process.</p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h3>Service Review</h3>
-                        <p>We provide a detailed explanation of all work performed and recommendations for future maintenance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Related Services Section -->
-    <section class="related-services-section">
+    <section class="related-services section-padding bg-light">
         <div class="container">
-            <h2 class="section-title">Related Services</h2>
-            <p class="section-description">You might also be interested in these services for your BMW</p>
+            <div class="section-title">
+                <h2>Related Services</h2>
+                <p>You might also be interested in these BMW services</p>
+            </div>
             
-            <div class="related-services-grid">
+            <div class="services-grid">
                 {% for s in services if s.id != service.id %}
                     {% if loop.index <= 3 %}
-                        <div class="related-service-card">
-                            <div class="service-icon">{{ s.icon }}</div>
-                            <h3>{{ s.title }}</h3>
-                            <p>{{ s.short_desc }}</p>
-                            <a href="{{ url_for('service_detail', service_id=s.id) }}" class="related-service-link">Learn More</a>
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="{{ url_for('static', filename='images/services/' + s.image) }}" alt="{{ s.title }}">
+                            </div>
+                            <div class="service-content">
+                                <div class="service-icon">{{ s.icon | safe }}</div>
+                                <h3 class="service-title">{{ s.title | safe }}</h3>
+                                <p class="service-desc">{{ s.short_desc | safe }}</p>
+                                <a href="{{ url_for('service_detail', service_id=s.id) }}" class="btn btn-secondary">Learn More</a>
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
     </section>
-
-    <!-- Call to Action Section -->
-    <section class="cta-section">
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials-section section-padding">
         <div class="container">
-            <div class="cta-content">
-                <h2>Ready to schedule your {{ service.title }}?</h2>
-                <p>Contact us today to book your appointment or request a quote.</p>
-                <a href="{{ url_for('contact') }}" class="cta-button">Contact Us Now</a>
+            <div class="section-title">
+                <h2>What Our Customers Say</h2>
+                <p>Read reviews from our satisfied customers about our {{ service.title }} service</p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">I had my BMW's {{ service.title.lower() }} done at BMW Hub and was extremely impressed with their attention to detail. The service was completed on time and at a fair price.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/customer-1.jpg') }}" alt="John Davis">
+                        </div>
+                        <div class="author-info">
+                            <h4>John Davis</h4>
+                            <p>BMW 5 Series Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">The team at BMW Hub diagnosed and fixed issues that two other shops couldn't find during their {{ service.title.lower() }}. These guys really know BMWs inside and out!</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/customer-2.jpg') }}" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>BMW X5 Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">I've been taking my BMW to the dealership for years, but BMW Hub did a better job on the {{ service.title.lower() }} at nearly half the price. I'm definitely coming back!</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="{{ url_for('static', filename='images/testimonials/customer-3.jpg') }}" alt="Michael Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>BMW 3 Series Owner</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    /* Container styles */
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    
-    /* Service detail section styles */
-    .service-detail-section {
-        padding: 80px 0;
-    }
-    
-    .service-detail-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: start;
-    }
-    
-    .service-image-container {
-        border-radius: 5px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .service-main-image {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-    
-    .service-description {
-        padding: 20px 0;
-    }
-    
-    .service-icon {
-        font-size: 48px;
-        margin-bottom: 20px;
-        color: #0078D6;
-    }
-    
-    .service-description h2 {
-        font-size: 30px;
-        margin-bottom: 20px;
-        color: #000;
-        font-weight: 300;
-        position: relative;
-        padding-bottom: 15px;
-    }
-    
-    .service-description h2:after {
-        content: '';
-        position: absolute;
-        width: 60px;
-        height: 3px;
-        background-color: #0078D6;
-        bottom: 0;
-        left: 0;
-    }
-    
-    .service-description p {
-        color: #666;
-        line-height: 1.8;
-        margin-bottom: 30px;
-    }
-    
-    .service-benefits {
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
-    
-    .service-benefits h3 {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: #000;
-    }
-    
-    .benefits-list {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .benefits-list li {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 15px;
-    }
-    
-    .benefit-icon {
-        color: #0078D6;
-        margin-right: 15px;
-        font-size: 18px;
-        flex-shrink: 0;
-    }
-    
-    .benefit-text {
-        color: #666;
-    }
-    
-    .service-button {
-        display: inline-block;
-        background-color: #0078D6;
-        color: white;
-        padding: 12px 25px;
-        font-size: 16px;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-    
-    .service-button:hover {
-        background-color: #005aa3;
-    }
-    
-    /* Service process section styles */
-    .service-process-section {
-        padding: 80px 0;
-        background-color: #f8f8f8;
-    }
-    
-    .process-steps {
-        margin-top: 50px;
-        position: relative;
-    }
-    
-    .process-steps:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 24px;
-        width: 2px;
-        background-color: #0078D6;
-        z-index: 1;
-    }
-    
-    .process-step {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 30px;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .step-number {
-        width: 50px;
-        height: 50px;
-        background-color: #0078D6;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        font-weight: bold;
-        margin-right: 30px;
-        flex-shrink: 0;
-        position: relative;
-    }
-    
-    .step-content {
-        background-color: white;
-        padding: 25px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        flex: 1;
-    }
-    
-    .step-content h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
-        color: #000;
-    }
-    
-    .step-content p {
-        color: #666;
-        margin: 0;
-        line-height: 1.6;
-    }
-    
-    /* Related services section styles */
-    .related-services-section {
-        padding: 80px 0;
-    }
-    
-    .related-services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-    }
-    
-    .related-service-card {
-        background-color: #f8f8f8;
-        padding: 30px;
-        border-radius: 5px;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .related-service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    
-    .related-service-card .service-icon {
-        font-size: 36px;
-        margin-bottom: 20px;
-    }
-    
-    .related-service-card h3 {
-        font-size: 20px;
-        margin-bottom: 15px;
-        color: #000;
-    }
-    
-    .related-service-card p {
-        color: #666;
-        margin-bottom: 20px;
-        font-size: 15px;
-    }
-    
-    .related-service-link {
-        display: inline-block;
-        color: #0078D6;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 14px;
-        position: relative;
-        padding-right: 20px;
-    }
-    
-    .related-service-link:after {
-        content: '→';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: right 0.3s;
-    }
-    
-    .related-service-link:hover:after {
-        right: -5px;
-    }
-    
-    /* CTA section styles */
-    .cta-section {
-        padding: 80px 0;
-        background-color: #00243C;
-        color: white;
-        text-align: center;
-    }
-    
-    .cta-content h2 {
-        font-size: 36px;
-        margin-bottom: 20px;
-        font-weight: 300;
-    }
-    
-    .cta-content p {
-        font-size: 18px;
-        margin-bottom: 30px;
-        opacity: 0.9;
-    }
-    
-    .cta-button {
-        display: inline-block;
-        background-color: #0078D6;
-        color: white;
-        padding: 15px 30px;
-        font-size: 16px;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-    
-    .cta-button:hover {
-        background-color: #005aa3;
-    }
-    
-    @media (max-width: 992px) {
-        .service-detail-content {
-            grid-template-columns: 1fr;
-        }
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
         
-        .service-image-container {
-            margin-bottom: 30px;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .service-detail-section,
-        .service-process-section,
-        .related-services-section,
-        .cta-section {
-            padding: 60px 0;
-        }
-        
-        .service-description h2 {
-            font-size: 24px;
-        }
-        
-        .cta-content h2 {
-            font-size: 28px;
-        }
-        
-        .cta-content p {
-            font-size: 16px;
-        }
-        
-        .process-steps:before {
-            left: 20px;
-        }
-        
-        .step-number {
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-            margin-right: 20px;
-        }
-        
-        .step-content {
-            padding: 15px;
-        }
-        
-        .step-content h3 {
-            font-size: 18px;
-        }
-    }
-</style>
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const toggle = item.querySelector('.faq-toggle');
+            
+            question.addEventListener('click', function() {
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                toggle.classList.toggle('active');
+                
+                const icon = toggle.querySelector('i');
+                icon.classList.toggle('fa-plus');
+                icon.classList.toggle('fa-minus');
+            });
+        });
+    });
+</script>
 {% endblock %}

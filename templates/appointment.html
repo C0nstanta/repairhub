@@ -1,0 +1,355 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule Service Appointment - BMW Hub{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/appointment.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Schedule Service Appointment</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Schedule Appointment</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section class="appointment-section section-padding">
+        <div class="container">
+            <div class="appointment-container">
+                <!-- Steps Navigation -->
+                <div class="appointment-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-info">
+                            <h3>Service Selection</h3>
+                            <p>Choose your service</p>
+                        </div>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-info">
+                            <h3>Date & Time</h3>
+                            <p>Pick your slot</p>
+                        </div>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-info">
+                            <h3>Your Details</h3>
+                            <p>Contact information</p>
+                        </div>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-info">
+                            <h3>Confirmation</h3>
+                            <p>Review & submit</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Appointment Form -->
+                <form id="appointmentForm" action="{{ url_for('appointment') }}" method="post" class="appointment-form">
+                    <!-- Step 1: Service Selection -->
+                    <div class="form-step active" data-step="1">
+                        <h2>Select Your Service</h2>
+                        <p>Choose the service you need for your BMW</p>
+                        
+                        <div class="service-options">
+                            {% for service in services %}
+                            <div class="service-option">
+                                <input type="radio" name="service" id="service_{{ service.id }}" value="{{ service.id }}" {% if loop.first %}checked{% endif %}>
+                                <label for="service_{{ service.id }}">
+                                    <div class="service-icon">{{ service.icon | safe }}</div>
+                                    <div class="service-info">
+                                        <h3>{{ service.title | safe }}</h3>
+                                        <p>{{ service.short_desc | safe }}</p>
+                                    </div>
+                                </label>
+                            </div>
+                            {% endfor %}
+                            <div class="service-option">
+                                <input type="radio" name="service" id="service_other" value="other">
+                                <label for="service_other">
+                                    <div class="service-icon">🔧</div>
+                                    <div class="service-info">
+                                        <h3>Other Service</h3>
+                                        <p>I need a different service not listed above</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group other-service-group" style="display: none;">
+                            <label for="other_service_desc" class="form-label">Please specify the service you need:</label>
+                            <textarea id="other_service_desc" name="other_service_desc" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="step-buttons">
+                            <button type="button" class="next-btn">Continue to Date & Time</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Date & Time Selection -->
+                    <div class="form-step" data-step="2">
+                        <h2>Select Date & Time</h2>
+                        <p>Choose your preferred appointment date and time</p>
+                        
+                        <div class="date-time-container">
+                            <div class="date-selection">
+                                <div class="form-group">
+                                    <label for="date" class="form-label required">Appointment Date</label>
+                                    <input type="date" id="date" name="date" class="form-control" required min="{{ now.strftime('%Y-%m-%d') }}">
+                                    <span class="form-error" id="dateError"></span>
+                                </div>
+                                
+                                <div class="calendar-view">
+                                    <div class="calendar-header">
+                                        <button type="button" class="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                        <h3 class="current-month"></h3>
+                                        <button type="button" class="next-month"><i class="fas fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="weekdays">
+                                        <div>Sun</div>
+                                        <div>Mon</div>
+                                        <div>Tue</div>
+                                        <div>Wed</div>
+                                        <div>Thu</div>
+                                        <div>Fri</div>
+                                        <div>Sat</div>
+                                    </div>
+                                    <div class="days"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="time-selection">
+                                <div class="form-group">
+                                    <label for="time" class="form-label required">Appointment Time</label>
+                                    <select id="time" name="time" class="form-control" required>
+                                        <option value="">Select a Time Slot</option>
+                                        <option value="09:00">9:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="15:00">3:00 PM</option>
+                                        <option value="16:00">4:00 PM</option>
+                                    </select>
+                                    <span class="form-error" id="timeError"></span>
+                                </div>
+                                
+                                <div class="time-slots">
+                                    <h4>Available Time Slots</h4>
+                                    <div class="slots-grid">
+                                        <div class="time-slot" data-time="09:00">9:00 AM</div>
+                                        <div class="time-slot" data-time="10:00">10:00 AM</div>
+                                        <div class="time-slot" data-time="11:00">11:00 AM</div>
+                                        <div class="time-slot" data-time="12:00">12:00 PM</div>
+                                        <div class="time-slot" data-time="13:00">1:00 PM</div>
+                                        <div class="time-slot" data-time="14:00">2:00 PM</div>
+                                        <div class="time-slot" data-time="15:00">3:00 PM</div>
+                                        <div class="time-slot" data-time="16:00">4:00 PM</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-buttons">
+                            <button type="button" class="prev-btn">Back to Service Selection</button>
+                            <button type="button" class="next-btn">Continue to Your Details</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Customer Information -->
+                    <div class="form-step" data-step="3">
+                        <h2>Your Contact Information</h2>
+                        <p>Please provide your details for the appointment</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="form-label required">Full Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+                                    <span class="form-error" id="nameError"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="form-label required">Email Address</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+                                    <span class="form-error" id="emailError"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone" class="form-label required">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Your Phone Number" required>
+                                    <span class="form-error" id="phoneError"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="bmw_model" class="form-label required">BMW Model</label>
+                                    <select id="bmw_model" name="bmw_model" class="form-control" required>
+                                        <option value="">Select Your BMW Model</option>
+                                        {% for category, models in bmw_models.items() %}
+                                            <optgroup label="{{ category }}">
+                                                {% for model in models %}
+                                                    <option value="{{ model }}">{{ model }}</option>
+                                                {% endfor %}
+                                            </optgroup>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="form-error" id="bmwModelError"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Additional Information</label>
+                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="Please provide any additional details about your service needs"></textarea>
+                        </div>
+                        
+                        <div class="step-buttons">
+                            <button type="button" class="prev-btn">Back to Date & Time</button>
+                            <button type="button" class="next-btn">Continue to Confirmation</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4: Confirmation -->
+                    <div class="form-step" data-step="4">
+                        <h2>Confirm Your Appointment</h2>
+                        <p>Please review your appointment details</p>
+                        
+                        <div class="appointment-summary">
+                            <div class="summary-section">
+                                <h3>Selected Service</h3>
+                                <p id="summary-service"></p>
+                            </div>
+                            
+                            <div class="summary-section">
+                                <h3>Date & Time</h3>
+                                <p id="summary-date-time"></p>
+                            </div>
+                            
+                            <div class="summary-section">
+                                <h3>Contact Information</h3>
+                                <p id="summary-name"></p>
+                                <p id="summary-email"></p>
+                                <p id="summary-phone"></p>
+                                <p id="summary-vehicle"></p>
+                            </div>
+                            
+                            <div class="summary-section">
+                                <h3>Additional Information</h3>
+                                <p id="summary-message"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+                            <label class="form-check-label required" for="terms">
+                                I agree to the <a href="#" class="terms-link">Terms & Conditions</a>
+                            </label>
+                            <span class="form-error" id="termsError"></span>
+                        </div>
+                        
+                        <div class="step-buttons">
+                            <button type="button" class="prev-btn">Back to Your Details</button>
+                            <button type="submit" class="submit-btn">Confirm Appointment</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Side Info -->
+                <div class="appointment-info">
+                    <div class="info-card">
+                        <h3>How It Works</h3>
+                        <ul class="info-steps">
+                            <li>
+                                <span class="step-icon"><i class="fas fa-hand-pointer"></i></span>
+                                <div class="step-text">
+                                    <h4>Select Your Service</h4>
+                                    <p>Choose the service you need for your BMW</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="step-icon"><i class="fas fa-calendar-alt"></i></span>
+                                <div class="step-text">
+                                    <h4>Choose Date & Time</h4>
+                                    <p>Select your preferred appointment slot</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="step-icon"><i class="fas fa-user"></i></span>
+                                <div class="step-text">
+                                    <h4>Provide Your Details</h4>
+                                    <p>Enter your contact information</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="step-icon"><i class="fas fa-check-circle"></i></span>
+                                <div class="step-text">
+                                    <h4>Confirm Appointment</h4>
+                                    <p>Review and confirm your booking</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card contact-card">
+                        <h3>Need Help?</h3>
+                        <p>If you have any questions or need assistance with scheduling your appointment, please contact us:</p>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a>
+                        </div>
+                        <div class="contact-hours">
+                            <h4>Business Hours</h4>
+                            {% for day, hours in company_info.hours.items() %}
+                                <p>{{ day }}: {{ hours }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validator.js') }}"></script>
+<script src="{{ url_for('static', filename='js/appointment.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize form validation
+        initAppointmentFormValidation();
+        
+        // Initialize appointment scheduler
+        initAppointmentScheduler();
+    });
+</script>
+{% endblock %}

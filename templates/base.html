@@ -5,51 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BMW Hub - Expert BMW Repair & Maintenance{% endblock %}</title>
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/simplified.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+    <!-- Font Awesome (Fixed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
     
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Top Bar with Contact Info -->
+    <!-- Top Bar -->
     <div class="top-bar">
-        <div class="contact-info">
-            <span><i class="fas fa-phone-alt icon"></i> {{ company_info.phone }}</span>
-            <span><i class="fas fa-envelope icon"></i> {{ company_info.email }}</span>
-            <span><i class="fas fa-clock icon"></i> Mon-Fri: {{ company_info.hours['Monday-Friday'] }}</span>
+        <div class="container">
+            <div class="top-contact">
+                <a href="tel:{{ company_info.phone }}" class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>{{ company_info.phone }}</span>
+                </a>
+                <a href="mailto:{{ company_info.email }}" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>{{ company_info.email }}</span>
+                </a>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Mon-Fri: {{ company_info.hours['Monday-Friday'] }}</span>
+                </div>
+            </div>
+            <div class="top-actions">
+                <a href="{{ url_for('login') }}" class="action-link">
+                    <i class="fas fa-user"></i>
+                    <span>Customer Login</span>
+                </a>
+                <a href="{{ url_for('appointment') }}" class="action-button">Schedule Service</a>
+            </div>
         </div>
     </div>
 
-    <!-- Logo and Navigation -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <a href="{{ url_for('index') }}">
-                    <h1 class="bmw-title">BMW Hub</h1>
-                </a>
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="BMW Hub" class="logo-img">
+                        <span class="logo-text">BMW Hub</span>
+                    </a>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul class="nav-menu">
+                        <li><a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+                        <li class="dropdown">
+                            <a href="{{ url_for('services_page') }}" class="nav-link {% if request.endpoint == 'services_page' or request.endpoint == 'service_detail' %}active{% endif %}">
+                                Services <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                {% for service in services %}
+                                <a href="{{ url_for('service_detail', service_id=service.id) }}" class="dropdown-item">{{ service.title }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <li><a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="mobile-actions">
+                    <a href="{{ url_for('appointment') }}" class="mobile-btn action-button">Schedule</a>
+                    <button class="menu-toggle">
+                        <span class="menu-icon"></span>
+                    </button>
+                </div>
             </div>
-            <nav>
-                <ul class="main-menu">
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('services_page') }}">Services</a></li>
-                    <li><a href="{{ url_for('about') }}">About Us</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-container">
+            <ul class="mobile-menu">
+                <li><a href="{{ url_for('index') }}" class="mobile-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+                <li class="mobile-dropdown">
+                    <a href="{{ url_for('services_page') }}" class="mobile-link {% if request.endpoint == 'services_page' or request.endpoint == 'service_detail' %}active{% endif %}">
+                        Services <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="mobile-dropdown-menu">
+                        {% for service in services %}
+                        <a href="{{ url_for('service_detail', service_id=service.id) }}" class="mobile-dropdown-item">{{ service.title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li><a href="{{ url_for('about') }}" class="mobile-link {% if request.endpoint == 'about' %}active{% endif %}">About Us</a></li>
+                <li><a href="{{ url_for('contact') }}" class="mobile-link {% if request.endpoint == 'contact' %}active{% endif %}">Contact</a></li>
+                <li><a href="{{ url_for('login') }}" class="mobile-link">Customer Login</a></li>
+            </ul>
+            <div class="mobile-contact">
+                <a href="tel:{{ company_info.phone }}" class="mobile-contact-item">
+                    <i class="fas fa-phone-alt"></i> {{ company_info.phone }}
+                </a>
+                <a href="mailto:{{ company_info.email }}" class="mobile-contact-item">
+                    <i class="fas fa-envelope"></i> {{ company_info.email }}
+                </a>
+            </div>
+        </div>
+    </div>
     
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="flash-messages">
+            <div class="flash-container">
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                        {{ message }}
+                    <div class="flash-message {{ category }}">
+                        <div class="container">
+                            <p>{{ message }}</p>
+                            <button class="close-flash"><i class="fas fa-times"></i></button>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -61,35 +139,100 @@
         {% block content %}{% endblock %}
     </main>
     
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready for expert BMW service?</h2>
+                <p>Schedule your appointment today and experience the BMW Hub difference.</p>
+                <a href="{{ url_for('appointment') }}" class="cta-button">Schedule Service</a>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-widgets">
                 <div class="footer-widget">
-                    <h3>About {{ company_info.name }}</h3>
-                    <p>{{ company_info.about_short }}</p>
+                    <div class="footer-logo">
+                        <img src="{{ url_for('static', filename='images/logo-white.png') }}" alt="BMW Hub">
+                        <span>BMW Hub</span>
+                    </div>
+                    <p class="footer-desc">{{ company_info.about_short }}</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
+                
                 <div class="footer-widget">
-                    <h3>Contact Information</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> {{ company_info.address }}</p>
-                    <p><i class="fas fa-phone-alt"></i> {{ company_info.phone }}</p>
-                    <p><i class="fas fa-envelope"></i> {{ company_info.email }}</p>
+                    <h3 class="widget-title">Quick Links</h3>
+                    <ul class="widget-links">
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('services_page') }}">Services</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="{{ url_for('login') }}">Customer Login</a></li>
+                    </ul>
                 </div>
+                
                 <div class="footer-widget">
-                    <h3>Business Hours</h3>
-                    {% for day, hours in company_info.hours.items() %}
-                        <p>{{ day }}: {{ hours }}</p>
-                    {% endfor %}
+                    <h3 class="widget-title">Our Services</h3>
+                    <ul class="widget-links">
+                        {% for service in services %}
+                            {% if loop.index <= 5 %}
+                                <li><a href="{{ url_for('service_detail', service_id=service.id) }}">{{ service.title }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="footer-widget">
+                    <h3 class="widget-title">Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ company_info.address }}</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span><a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span><a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon-Fri: {{ company_info.hours['Monday-Friday'] }}</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Sat: {{ company_info.hours['Saturday'] }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
                 <p>&copy; {{ now.year }} {{ company_info.name }}. All Rights Reserved. Not affiliated with BMW AG.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
     
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    
     <!-- JavaScript -->
-    <script src="{{ url_for('static', filename='js/simplified.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/video-bg.js') }}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

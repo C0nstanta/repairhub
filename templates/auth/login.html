@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Login - BMW Hub{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Customer Login</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Login to access your customer dashboard, service history, and more</p>
+                </div>
+                
+                <form id="loginForm" action="{{ url_for('login') }}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label required">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label required">Password</label>
+                        <div class="password-field">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Your Password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="passwordError"></span>
+                    </div>
+                    
+                    <div class="form-action">
+                        <button type="submit" class="submit-btn">Login</button>
+                        <a href="{{ url_for('forgot_password') }}">Forgot Password?</a>
+                    </div>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="{{ url_for('register') }}">Register Now</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validator.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize form validation
+        initLoginFormValidation();
+        
+        // Toggle password visibility
+        const togglePassword = document.querySelector('.toggle-password');
+        const passwordField = document.getElementById('password');
+        
+        if (togglePassword && passwordField) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Toggle icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        }
+    });
+</script>
+{% endblock %}

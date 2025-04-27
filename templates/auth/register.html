@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account - BMW Hub{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Create Account</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Register</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Register Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2>Join BMW Hub</h2>
+                    <p>Create your customer account to manage your service history and appointments</p>
+                </div>
+                
+                <form id="registerForm" action="{{ url_for('register') }}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label required">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Your Full Name" required>
+                        <span class="form-error" id="nameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label required">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="Your Phone Number">
+                        <span class="form-error" id="phoneError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label required">Password</label>
+                        <div class="password-field">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="passwordError"></span>
+                        <small class="password-requirements">
+                            Password must be at least 8 characters and include uppercase, lowercase, number, and special character
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label required">Confirm Password</label>
+                        <div class="password-field">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="confirmPasswordError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" value="1">
+                            <label class="form-check-label" for="newsletter">
+                                Subscribe to our newsletter for maintenance tips and special offers
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="terms" name="terms" value="1" required>
+                            <label class="form-check-label required" for="terms">
+                                I agree to the <a href="#" class="terms-link">Terms & Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                            </label>
+                            <span class="form-error" id="termsError"></span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Create Account</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="{{ url_for('login') }}">Login Now</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validator.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize form validation
+        initRegisterFormValidation();
+        
+        // Toggle password visibility
+        const toggleButtons = document.querySelectorAll('.toggle-password');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const passwordField = this.previousElementSibling;
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Toggle icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        });
+        
+        // Terms checkbox validation
+        const termsCheckbox = document.getElementById('terms');
+        const termsError = document.getElementById('termsError');
+        
+        if (termsCheckbox && termsError) {
+            termsCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    termsError.textContent = '';
+                    termsError.style.display = 'none';
+                } else {
+                    termsError.textContent = 'You must agree to the Terms & Conditions';
+                    termsError.style.display = 'block';
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

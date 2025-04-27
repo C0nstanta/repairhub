@@ -1,13 +1,80 @@
-/* Video Background Responsive Styles */
-@media screen and (max-width: 1200px) {
-    .hero-content {
-        padding: 120px 0;
+/*
+ * BMW Hub - Responsive Styles
+ * Mobile-first responsive design
+ */
+
+/* === Large Desktop (1200px and up) === */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1170px;
+    }
+    
+    .hero {
+        height: 700px;
+    }
+    
+    .hero h1 {
+        font-size: 56px;
     }
 }
 
-@media screen and (max-width: 992px) {
-    .hero-content {
-        padding: 100px 0;
+/* === Desktop (992px - 1199px) === */
+@media (max-width: 1199px) {
+    .section-padding {
+        padding: 70px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 32px;
+    }
+    
+    .hero {
+        height: 550px;
+    }
+    
+    .hero h1 {
+        font-size: 42px;
+    }
+    
+    .hero p {
+        font-size: 17px;
+    }
+    
+    .contact-container {
+        gap: 30px;
+    }
+}
+
+/* === Tablet (768px - 991px) === */
+@media (max-width: 991px) {
+    /* Header & Navigation */
+    .main-nav {
+        display: none;
+    }
+    
+    .mobile-actions {
+        display: flex;
+        align-items: center;
+    }
+    
+    .mobile-btn {
+        margin-right: 15px;
+        font-size: 13px;
+        padding: 7px 15px;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    /* Top Bar */
+    .top-bar .contact-item:nth-child(2) {
+        display: none;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 500px;
     }
     
     .hero h1 {
@@ -17,28 +84,179 @@
     .hero p {
         font-size: 16px;
     }
+    
+    /* Sections */
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        margin-bottom: 40px;
+    }
+    
+    .section-title h2 {
+        font-size: 28px;
+    }
+    
+    /* About Section */
+    .about-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .about-image, .about-text {
+        width: 100%;
+    }
+    
+    /* Contact Page */
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Service Detail */
+    .service-detail-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* CTA Section */
+    .cta-content h2 {
+        font-size: 30px;
+    }
 }
 
-@media screen and (max-width: 768px) {
-    .hero-content {
-        padding: 80px 0;
+/* === Mobile (576px - 767px) === */
+@media (max-width: 767px) {
+    /* Top Bar */
+    .top-bar {
+        display: none;
+    }
+    
+    /* Header */
+    .header-content {
+        padding: 12px 0;
+    }
+    
+    .logo-img {
+        height: 35px;
+    }
+    
+    .logo-text {
+        font-size: 20px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 450px;
     }
     
     .hero h1 {
         font-size: 30px;
     }
     
-    /* On smaller screens, ensure the video is properly covering the area */
-    .video-background video {
-        height: 100%;
+    .hero p {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .hero-button {
         width: 100%;
-        object-fit: cover;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    /* Sections */
+    .section-padding {
+        padding: 50px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 26px;
+    }
+    
+    /* Services Grid */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Team Grid */
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+        padding: 50px 0;
+    }
+    
+    .cta-content h2 {
+        font-size: 26px;
+    }
+    
+    .cta-content p {
+        font-size: 16px;
+    }
+    
+    /* Footer */
+    .main-footer {
+        padding: 50px 0 0;
+    }
+    
+    .footer-widgets {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-bottom p {
+        margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+    
+    /* Forms */
+    .form-container, 
+    .auth-container, 
+    .contact-form-container, 
+    .contact-info-container {
+        padding: 25px;
+    }
+    
+    /* Back to Top */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
     }
 }
 
-@media screen and (max-width: 576px) {
-    .hero-content {
-        padding: 60px 0;
+/* === Small Mobile (Up to 575px) === */
+@media (max-width: 575px) {
+    /* Container */
+    .container {
+        padding: 0 10px;
+    }
+    
+    /* Header */
+    .mobile-btn {
+        display: none;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 400px;
     }
     
     .hero h1 {
@@ -49,10 +267,136 @@
         font-size: 14px;
     }
     
-    /* For very small screens, fallback to image might be better */
-    .hero.video-fallback {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/hero-bg.jpg');
-        background-size: cover;
-        background-position: center;
+    /* Sections */
+    .section-padding {
+        padding: 40px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 24px;
+    }
+    
+    .section-title p {
+        font-size: 14px;
+    }
+    
+    /* Service Card */
+    .service-image {
+        height: 180px;
+    }
+    
+    .service-content {
+        padding: 20px;
+    }
+    
+    /* Feature Item */
+    .feature-item {
+        flex-direction: column;
+    }
+    
+    .feature-icon {
+        margin-bottom: 10px;
+    }
+    
+    /* Team Card */
+    .team-image {
+        height: 220px;
+    }
+    
+    /* Forms */
+    .form-label {
+        font-size: 14px;
+    }
+    
+    .form-control {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .submit-btn {
+        width: 100%;
+        padding: 12px 0;
+    }
+    
+    /* Flash Messages */
+    .flash-container {
+        width: calc(100% - 20px);
+        right: 10px;
+    }
+}
+
+/* === Mobile Navigation Height Fix === */
+@media (max-height: 500px) {
+    .mobile-nav {
+        overflow-y: scroll;
+    }
+    
+    .mobile-nav-container {
+        padding: 20px;
+    }
+    
+    .mobile-link {
+        padding: 8px 0;
+    }
+}
+
+/* === Print Styles === */
+@media print {
+    .top-bar,
+    .main-header,
+    .cta-section,
+    .main-footer,
+    .back-to-top,
+    .mobile-nav {
+        display: none !important;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    body {
+        font-size: 12pt;
+        color: #000;
+        background: #fff;
+    }
+    
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+    
+    .hero {
+        height: auto;
+        padding: 30px 0;
+        color: #000;
+    }
+    
+    .video-background,
+    .video-overlay {
+        display: none;
+    }
+    
+    .hero-content {
+        position: static;
+    }
+    
+    .hero h1 {
+        font-size: 24pt;
+    }
+    
+    .hero p {
+        font-size: 12pt;
+    }
+    
+    .hero-buttons {
+        display: none;
+    }
+    
+    .service-card,
+    .team-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
     }
 }

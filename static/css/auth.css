@@ -1,0 +1,476 @@
+/**
+ * BMW Hub Authentication Styles
+ * Styling for login, registration, and account pages
+ */
+
+/* === Auth Section === */
+.auth-section {
+    padding: 80px 0;
+    background-color: var(--light-gray);
+}
+
+.auth-container {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+}
+
+/* === Auth Header === */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.auth-header p {
+    color: var(--dark-gray);
+    font-size: 16px;
+}
+
+/* === Auth Form === */
+.auth-form .form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    font-family: var(--primary-font);
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(28, 105, 212, 0.1);
+}
+
+.form-control.error {
+    border-color: var(--accent-color);
+}
+
+.password-field {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.toggle-password:hover {
+    opacity: 1;
+}
+
+.form-error {
+    display: none;
+    color: var(--accent-color);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.required:after {
+    content: '*';
+    color: var(--accent-color);
+    margin-left: 4px;
+}
+
+.form-check {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.form-check-input {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.form-check-label {
+    font-size: 14px;
+    color: var(--dark-gray);
+}
+
+.password-requirements {
+    display: block;
+    font-size: 12px;
+    color: var(--dark-gray);
+    margin-top: 5px;
+}
+
+.terms-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    transition: var(--transition);
+}
+
+.terms-link:hover {
+    color: var(--secondary-color);
+}
+
+/* === Form Action === */
+.form-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-action .submit-btn {
+    margin-right: auto;
+}
+
+.form-action a {
+    color: var(--primary-color);
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-action a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* === Auth Footer === */
+.auth-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--medium-gray);
+}
+
+.auth-footer p {
+    color: var(--dark-gray);
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.auth-footer a:hover {
+    color: var(--secondary-color);
+}
+
+/* === Social Login === */
+.social-login {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.social-login p {
+    font-size: 14px;
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.social-login p:before,
+.social-login p:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 70px);
+    height: 1px;
+    background-color: var(--medium-gray);
+}
+
+.social-login p:before {
+    left: 0;
+}
+
+.social-login p:after {
+    right: 0;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: var(--dark-gray);
+    transition: var(--transition);
+}
+
+.social-button.google {
+    color: #DB4437;
+}
+
+.social-button.facebook {
+    color: #4267B2;
+}
+
+.social-button.apple {
+    color: #000;
+}
+
+.social-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* === User Account Page === */
+.account-section {
+    padding: 80px 0;
+}
+
+.account-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.account-header {
+    margin-bottom: 40px;
+}
+
+.account-header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+}
+
+.account-sidebar {
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.user-info {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
+
+.user-email {
+    font-size: 14px;
+    color: var(--dark-gray);
+}
+
+.account-menu {
+    padding: 15px 0;
+}
+
+.account-menu li {
+    margin-bottom: 5px;
+}
+
+.account-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--dark-gray);
+    font-size: 15px;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+}
+
+.account-menu a.active {
+    background-color: rgba(28, 105, 212, 0.1);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+}
+
+.account-menu a:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.account-menu i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.account-content {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+}
+
+.account-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--medium-gray);
+    color: var(--secondary-color);
+}
+
+/* === Responsive Styles === */
+@media (max-width: 991px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .account-sidebar {
+        margin-bottom: 30px;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        padding: 15px 20px;
+    }
+    
+    .user-avatar {
+        width: 60px;
+        height: 60px;
+        margin: 0 15px 0 0;
+    }
+    
+    .account-menu {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+    
+    .account-menu li {
+        margin: 5px;
+    }
+    
+    .account-menu a {
+        padding: 8px 15px;
+        border-radius: 4px;
+        border-left: none;
+        font-size: 14px;
+    }
+    
+    .account-menu a.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+}
+
+@media (max-width: 767px) {
+    .auth-section {
+        padding: 50px 0;
+    }
+    
+    .auth-container {
+        padding: 30px 20px;
+    }
+    
+    .auth-header h2 {
+        font-size: 26px;
+    }
+    
+    .account-menu {
+        flex-direction: column;
+    }
+    
+    .account-menu li {
+        width: 100%;
+        margin: 2px 0;
+    }
+}
+
+@media (max-width: 575px) {
+    .form-action {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .form-action a {
+        margin-top: 15px;
+    }
+    
+    .user-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-avatar {
+        margin: 0 auto 15px;
+    }
+}
